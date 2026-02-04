@@ -1,32 +1,73 @@
 <template>
   <div id="app">
-    <nav>
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </nav>
-    <router-view/>
+    <HomePage />
   </div>
 </template>
 
+<script>
+import HomePage from '@/views/HomePage.vue';
+
+export default {
+  components: {
+    HomePage,
+  },
+};
+</script>
+
 <style lang="scss">
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: Open Sans, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+  color: #808080;
+}
+html, body {
+  width: 1024px;
+  margin: 0;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin-top: 0;
+  margin-bottom: 0;
 }
 
-nav {
-  padding: 30px;
+ul,
+ol {
+  margin-top: 0;
+  margin-bottom: 0;
+  padding-left: 0;
+}
 
-  a {
-    font-weight: bold;
-    color: #2c3e50;
+img {
+  display: block;
+}
 
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
+.list{
+  list-style: none;
+}
+
+.link {
+  text-decoration: none;
+}
+
+button {
+  cursor: pointer;
+}
+
+// body{
+//     background: var(--background-color);
+//     color: var(--white-color);
+//     font-family: 'Inter', sans-serif;
+//     letter-spacing: 0.03em;
+//     font-weight: 400;
+// }
+
+ul{
+  list-style: none;
 }
 </style>
