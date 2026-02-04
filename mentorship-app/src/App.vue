@@ -24,6 +24,7 @@ export default {
 html, body {
   width: 1024px;
   margin: 0;
+  max-width: 1024px;
 }
 h1,
 h2,
