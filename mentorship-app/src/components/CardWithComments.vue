@@ -68,7 +68,7 @@ export default {
   }
 }
 .feedback-area {
-  // opacity: 0;
+  opacity: 0;
   position: absolute;
   bottom: 0;
   left: 0;

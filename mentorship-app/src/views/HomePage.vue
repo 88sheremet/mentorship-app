@@ -3,7 +3,7 @@
     <h1 id="header" class="header">
       Welcome to Viseven <span>imagestock</span>
     </h1>
-    <GalleryBox />
+    <GalleryBox/>
     <ScrollBar/>
   </div>
 </template>

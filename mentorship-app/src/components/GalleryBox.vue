@@ -46,8 +46,6 @@
       :visible="isModalOpen"
       @close="isModalOpen = false"
     >
-      <h2>Header</h2>
-      <p>Content</p>
     </ModalCard>
   </div>
 </template>

@@ -19,7 +19,7 @@ export default {
   font-family: Open Sans, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color: #808080;
+  color: #a1b1bb;
 }
 html, body {
   width: 1024px;
