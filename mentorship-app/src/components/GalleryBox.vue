@@ -1,45 +1,52 @@
 <template>
   <div class="wrapper">
-   <div class="box">
-    <div class="box__horizontal">
+    <div class="box">
+      <div class="box__horizontal">
         <div class="box__horizontal-wrapper">
-          <img class="box__inner-img" src="../assets/pic1.png" alt="Image">
+          <img class="box__inner-img" src="../assets/pic1.png" alt="Image" />
         </div>
-    </div>
-    <div class="box__horizontal2">
+      </div>
+      <div class="box__horizontal2">
         <div class="box__horizontal2-wrapper">
-          <img class="box__inner-img" src="../assets/pic4.png" alt="Image">
+          <img class="box__inner-img" src="../assets/pic4.png" alt="Image" />
         </div>
         <div class="box__horizontal2-wrapper">
-          <img class="box__inner-img box__inner-img-right" src="../assets/pic5.png" alt="Image">
+          <img
+            class="box__inner-img box__inner-img-right"
+            src="../assets/pic5.png"
+            alt="Image"
+          />
         </div>
+      </div>
     </div>
-
-   </div>
-   <div class="box2">
-    <div class="box__vertical1">
+    <div class="box2">
+      <div class="box__vertical1">
         <div class="box__vertical1">
-           <img class="box__inner-img" src="../assets/pic2.png" alt="Image">
+          <img class="box__inner-img" src="../assets/pic2.png" alt="Image" />
         </div>
-    </div>
-    <div class="box__vertical2">
+      </div>
+      <div class="box__vertical2">
         <div class="box__vertical2-wrapper">
-          <img class="box__inner-img" src="../assets/pic3.png" alt="Image">
+          <img class="box__inner-img" src="../assets/pic3.png" alt="Image" />
         </div>
         <div class="box__vertical2-wrapper">
-          <img class="box__inner-img box__inner-img-third" src="../assets/pic6.png" alt="Image">
+          <img
+            class="box__inner-img box__inner-img-third"
+            src="../assets/pic6.png"
+            alt="Image"
+          />
         </div>
+      </div>
     </div>
-   </div>
-   <div class="box3">
-    <div class="box3__inner-box box3__inner-box1">
-        <img src="../assets/pic7.png" alt="Image">
+    <div class="box3">
+      <div class="box3__inner-box box3__inner-box1">
+        <img src="../assets/pic7.png" alt="Image" />
+      </div>
+      <div class="box3__inner-box box3__inner-box2">
+        <img src="../assets/pic8.png" alt="Image" />
+      </div>
+      <AddImageCard />
     </div>
-    <div class="box3__inner-box box3__inner-box2">
-        <img src="../assets/pic8.png" alt="Image">
-    </div>
-    <AddImageCard />
-   </div>
   </div>
 </template>
 <script>
@@ -54,42 +61,41 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.wrapper{
-    display: flex;
-    flex-wrap: wrap;
+.wrapper {
+  display: flex;
+  width: 995px;
+  flex-wrap: wrap;
+  margin-bottom: 31px;
 }
-.box{
-    display: flex;
-    flex-direction: column;
+.box {
+  display: flex;
+  flex-direction: column;
 }
-.box2{
-    display: flex;
-     margin-left: -7px;
+.box2 {
+  display: flex;
+  margin-left: -8px;
 }
-.box__horizontal2{
-    display: flex;
-    margin-top: -8px;
+.box__horizontal2 {
+  display: flex;
+  margin-top: -8px;
 }
 
-.box__inner-img-right{
-    margin-left: -7px;
+.box__inner-img-right {
+  margin-left: -7px;
 }
-.box__inner-img-third{
-    margin-top: -7px;
+.box__inner-img-third {
+  margin-top: -8px;
 }
-.box__vertical2{
-    display: flex;
-    flex-direction: column;
-    margin-left: -8px;
+.box__vertical2 {
+  display: flex;
+  flex-direction: column;
+  margin-left: -8px;
 }
-.box3{
-    display: flex;
-     margin-top: -7px;
+.box3 {
+  display: flex;
+  margin-top: -8px;
 }
-.box3__inner-box2{
-   margin-left: -7px;
+.box3__inner-box2 {
+  margin-left: -7px;
 }
-// .box3__inner-box3{
-//    margin-left: -7px;
-// }
 </style>
