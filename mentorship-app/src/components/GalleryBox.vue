@@ -10,13 +10,7 @@
         <button class="box__horizontal2-wrapper">
           <img class="box__inner-img" src="../assets/pic4.png" alt="Image" />
         </button>
-        <button class="box__horizontal2-wrapper">
-          <img
-            class="box__inner-img box__inner-img-right"
-            src="../assets/pic5.png"
-            alt="Image"
-          />
-        </button>
+        <CardWithComments />
       </div>
     </div>
     <div class="box2">
@@ -60,12 +54,14 @@
 <script>
 import AddImageCard from '@/components/AddImageCard.vue';
 import ModalCard from '@/components/ModalCard.vue';
+import CardWithComments from '@/components/CardWithComments.vue';
 
 export default {
   name: 'GalleryBox',
   components: {
     AddImageCard,
     ModalCard,
+    CardWithComments,
   },
   data() {
     return {
@@ -95,9 +91,6 @@ export default {
   margin-top: -12px;
 }
 
-.box__inner-img-right {
-  margin-left: -7px;
-}
 .box__inner-img-third {
   margin-top: -8px;
 }
