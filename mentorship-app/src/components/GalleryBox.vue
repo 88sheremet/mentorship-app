@@ -2,40 +2,40 @@
   <div class="wrapper">
     <div class="box">
       <div class="box__horizontal">
-        <div class="box__horizontal-wrapper">
-          <img class="box__inner-img" src="../assets/pic1.png" alt="Image" />
-        </div>
+        <button class="box__horizontal-wrapper" @click="isModalOpen = true">
+          <img class="box__inner-img" src="../assets/pic1.png" alt="Image"/>
+        </button>
       </div>
       <div class="box__horizontal2">
-        <div class="box__horizontal2-wrapper">
+        <button class="box__horizontal2-wrapper">
           <img class="box__inner-img" src="../assets/pic4.png" alt="Image" />
-        </div>
-        <div class="box__horizontal2-wrapper">
+        </button>
+        <button class="box__horizontal2-wrapper">
           <img
             class="box__inner-img box__inner-img-right"
             src="../assets/pic5.png"
             alt="Image"
           />
-        </div>
+        </button>
       </div>
     </div>
     <div class="box2">
       <div class="box__vertical1">
-        <div class="box__vertical1">
+        <button class="box__vertical1">
           <img class="box__inner-img" src="../assets/pic2.png" alt="Image" />
-        </div>
+        </button>
       </div>
       <div class="box__vertical2">
-        <div class="box__vertical2-wrapper">
+        <button class="box__vertical2-wrapper">
           <img class="box__inner-img" src="../assets/pic3.png" alt="Image" />
-        </div>
-        <div class="box__vertical2-wrapper">
+        </button>
+        <button class="box__vertical2-wrapper">
           <img
             class="box__inner-img box__inner-img-third"
             src="../assets/pic6.png"
             alt="Image"
           />
-        </div>
+        </button>
       </div>
     </div>
     <div class="box3">
@@ -47,15 +47,30 @@
       </div>
       <AddImageCard />
     </div>
+
+       <ModalCard
+      :visible="isModalOpen"
+      @close="isModalOpen = false"
+    >
+      <h2>Header</h2>
+      <p>Content</p>
+    </ModalCard>
   </div>
 </template>
 <script>
 import AddImageCard from '@/components/AddImageCard.vue';
+import ModalCard from '@/components/ModalCard.vue';
 
 export default {
   name: 'GalleryBox',
   components: {
     AddImageCard,
+    ModalCard,
+  },
+  data() {
+    return {
+      isModalOpen: false,
+    };
   },
 };
 </script>
@@ -77,7 +92,7 @@ export default {
 }
 .box__horizontal2 {
   display: flex;
-  margin-top: -8px;
+  margin-top: -12px;
 }
 
 .box__inner-img-right {
@@ -93,7 +108,7 @@ export default {
 }
 .box3 {
   display: flex;
-  margin-top: -8px;
+  margin-top: -12px;
 }
 .box3__inner-box2 {
   margin-left: -7px;
