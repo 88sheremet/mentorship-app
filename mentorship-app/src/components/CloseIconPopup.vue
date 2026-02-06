@@ -3,7 +3,7 @@
     class="modal-close"
     type="button"
     aria-label="Close modal"
-    @click="close"
+    @click="$emit('click')"
   >
     <img class="" src="../assets/close-icon.png" alt="Close icon" />
   </button>

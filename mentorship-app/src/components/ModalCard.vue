@@ -37,7 +37,7 @@
             </div>
           </div>
           <div class="modal__wrapper-right">
-            <CloseIconPopup class="close-icon-popup" />
+            <CloseIconPopup class="close-icon-popup" @click="close"/>
             <SendCommentArea />
             <InputArea />
           </div>
