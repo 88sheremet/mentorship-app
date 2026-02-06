@@ -12,29 +12,35 @@
       <div class="modal">
         <div class="modal__wrapper">
           <div class="modal__wrapper-left">
-            <img src="../assets/popup-pic1.png" alt="Picture" class="modal__wrapper-left-img">
+            <img
+              src="../assets/popup-pic1.png"
+              alt="Picture"
+              class="modal__wrapper-left-img"
+            />
             <div class="modal__wrapper-left-bottom-box">
               <div class="dislike-box likes-box">
                 <div class="dislike-box__content likes-box__content">
-                  <img :src="dislike" alt="" class="likes-box__content-img">
+                  <img :src="dislike" alt="" class="likes-box__content-img" />
                   <div class="dislike-circle likes-circle">
                     <p class="dislike-circle-text likes-circle-text">7</p>
                   </div>
                 </div>
               </div>
               <div class="like-box likes-box">
-                  <div class="like-box__content likes-box__content">
-                  <img :src="like" alt="" class="likes-box__content-img">
+                <div class="like-box__content likes-box__content">
+                  <img :src="like" alt="" class="likes-box__content-img" />
                   <div class="like-circle likes-circle">
                     <p class="like-circle-text likes-circle-text">10</p>
                   </div>
                 </div>
               </div>
-
             </div>
           </div>
-          <div class="modal__wrapper-right"></div>
-
+          <div class="modal__wrapper-right">
+            <CloseIconPopup class="close-icon-popup" />
+            <SendCommentArea />
+            <InputArea />
+          </div>
         </div>
       </div>
     </div>
@@ -42,6 +48,10 @@
 </template>
 
 <script>
+import CloseIconPopup from '@/components/CloseIconPopup.vue';
+import SendCommentArea from '@/components/SendCommentArea.vue';
+import InputArea from '@/components/InputArea.vue';
+
 import dislike from '../assets/popup-dislike-icon.png';
 import like from '../assets/popup-like-icon.png';
 
@@ -52,6 +62,11 @@ export default {
       dislike,
       like,
     };
+  },
+  components: {
+    CloseIconPopup,
+    SendCommentArea,
+    InputArea,
   },
   props: {
     visible: {
@@ -91,12 +106,12 @@ export default {
 }
 
 .modal {
-background: #fff;
-    border-radius: 3px;
-    width: 810px;
-    height: 595px;
-    margin-top: 19px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  background: #fff;
+  border-radius: 3px;
+  width: 810px;
+  height: 595px;
+  margin-top: 19px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
 .fade-enter-active,
@@ -108,34 +123,35 @@ background: #fff;
 .fade-leave-to {
   opacity: 0;
 }
-.modal__wrapper{
+.modal__wrapper {
   padding-bottom: 20px;
   padding-right: 12px;
+  display: flex;
 }
-.modal__wrapper-left{
+.modal__wrapper-left {
   position: relative;
 }
-.modal__wrapper-left-bottom-box{
-position: absolute;
-    bottom: 0;
-    height: 63px;
-    background: #f3f4f2;
-    width: 451px;
-    display: flex;
-    justify-content: end;
-    gap: 6px;
+.modal__wrapper-left-bottom-box {
+  position: absolute;
+  bottom: 0;
+  height: 63px;
+  background: #f3f4f2;
+  width: 451px;
+  display: flex;
+  justify-content: end;
+  gap: 6px;
 }
-.dislike-box{
+.dislike-box {
   background: #d02828;
   width: 64px;
   height: 61px;
 }
-.like-box{
-background: #e0e5e9;
-    width: 64px;
-    height: 61px;
-    margin-right: 8px;
-        margin-top: -7px;
+.like-box {
+  background: #e0e5e9;
+  width: 64px;
+  height: 61px;
+  margin-right: 8px;
+  margin-top: -7px;
 }
 .likes-circle {
   border-radius: 50%;
@@ -155,19 +171,30 @@ background: #e0e5e9;
   font-weight: 600;
   color: #0d7f8a;
 }
-.likes-box__content{
-    position: relative;
-    width: 34px;
-    height: 30px;
-    margin-left: 16px;
-    margin-top: 13px;
+.likes-box__content {
+  position: relative;
+  width: 34px;
+  height: 30px;
+  margin-left: 16px;
+  margin-top: 13px;
 }
 .likes-box__content-img {
   position: absolute;
   left: 0;
   bottom: 0;
 }
-.like-box__content{
-   margin-left: 20px;
+.like-box__content {
+  margin-left: 20px;
+}
+.modal__wrapper-right {
+  padding-top: 10px;
+}
+.close-icon-popup {
+  margin-left: 329px;
+}
+.send-comment-area {
+  padding-left: 33px;
+  margin-top: -9px;
+  margin-bottom: 7px;
 }
 </style>
