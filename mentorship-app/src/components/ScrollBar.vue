@@ -5,13 +5,11 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import { Component, Vue } from 'vue-property-decorator';
 
-export default {
-  name: 'ScrollBar',
-  components: {
-  },
-};
+@Component
+export default class ScrollBar extends Vue {}
 </script>
 
 <style scoped lang="scss">

@@ -37,7 +37,7 @@
             </div>
           </div>
           <div class="modal__wrapper-right">
-            <CloseIconPopup class="close-icon-popup" @click="close"/>
+            <CloseIconPopup class="close-icon-popup" @click="close" />
             <SendCommentArea />
             <InputArea />
           </div>
@@ -47,50 +47,53 @@
   </transition>
 </template>
 
-<script>
+<script lang="ts">
+import { Component, Vue, Prop } from 'vue-property-decorator';
+
 import CloseIconPopup from '@/components/CloseIconPopup.vue';
 import SendCommentArea from '@/components/SendCommentArea.vue';
 import InputArea from '@/components/InputArea.vue';
 
-import dislike from '../assets/popup-dislike-icon.png';
-import like from '../assets/popup-like-icon.png';
+import dislikeIcon from '../assets/popup-dislike-icon.png';
+import likeIcon from '../assets/popup-like-icon.png';
 
-export default {
-  name: 'ModalCard',
-  data() {
-    return {
-      dislike,
-      like,
-    };
-  },
+@Component({
   components: {
     CloseIconPopup,
     SendCommentArea,
     InputArea,
   },
-  props: {
-    visible: {
-      type: Boolean,
-      required: true,
-    },
-  },
-  mounted() {
+})
+export default class ModalCard extends Vue {
+  // ===== Props =====
+  @Prop({ type: Boolean, required: true })
+  readonly visible!: boolean
+
+  // ===== Data =====
+  dislike: string = dislikeIcon
+
+  like: string = likeIcon
+
+  // ===== Lifecycle =====
+  mounted(): void {
     document.addEventListener('keydown', this.onEsc);
-  },
-  beforeDestroy() {
+  }
+
+  beforeDestroy(): void {
     document.removeEventListener('keydown', this.onEsc);
-  },
-  methods: {
-    close() {
-      this.$emit('close');
-    },
-    onEsc(e) {
-      if (e.key === 'Escape') {
-        this.close();
-      }
-    },
-  },
-};
+  }
+
+  // ===== Methods =====
+  close(): void {
+    this.$emit('close');
+  }
+
+  onEsc(event: KeyboardEvent): void {
+    if (event.key === 'Escape') {
+      this.close();
+    }
+  }
+}
 </script>
 
 <style lang="scss">

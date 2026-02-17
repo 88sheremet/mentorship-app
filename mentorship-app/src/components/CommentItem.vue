@@ -9,25 +9,20 @@
     </div>
   </div>
 </template>
-<script>
-export default {
-  name: 'CommentItem',
-  components: {},
-  props: {
-    person: {
-      type: String,
-      required: true,
-    },
-    time: {
-      type: String,
-      required: true,
-    },
-    comment: {
-      type: String,
-      required: true,
-    },
-  },
-};
+<script lang="ts">
+import { Component, Vue, Prop } from 'vue-property-decorator';
+
+@Component
+export default class CommentItem extends Vue {
+  @Prop({ type: String, required: true })
+  readonly person!: string;
+
+  @Prop({ type: String, required: true })
+  readonly time!: string;
+
+  @Prop({ type: String, required: true })
+  readonly comment!: string;
+}
 </script>
 
 <style scoped lang="scss">

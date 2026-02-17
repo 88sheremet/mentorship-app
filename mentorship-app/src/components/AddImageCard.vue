@@ -20,30 +20,35 @@
   </button>
 </template>
 
-<script>
-export default {
-  name: 'AddImageCard',
-  methods: {
-    openFileDialog() {
-      this.$refs.fileInput.click();
-    },
-    handleFile(e) {
-      const input = e.target;
-      const file = input.files[0];
+<script lang="ts">
+import { Component, Vue } from 'vue-property-decorator';
 
-      if (!file) return;
+@Component
+export default class AddImageCard extends Vue {
+  $refs!: {
+    fileInput: HTMLInputElement
+  };
 
-      if (!file.type.startsWith('image/')) {
-        alert('Please select an image');
-        return;
-      }
+  openFileDialog(): void {
+    this.$refs.fileInput.click();
+  }
 
-      this.$emit('add-image', file);
+  handleFile(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    const file = input.files?.[0];
 
-      input.value = '';
-    },
-  },
-};
+    if (!file) return;
+
+    if (!file.type.startsWith('image/')) {
+      alert('Please select an image');
+      return;
+    }
+
+    this.$emit('add-image', file);
+
+    input.value = '';
+  }
+}
 </script>
 
 <style scoped>

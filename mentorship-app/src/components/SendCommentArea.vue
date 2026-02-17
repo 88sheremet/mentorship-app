@@ -30,21 +30,18 @@
     </div>
   </div>
 </template>
-<script>
+<script lang="ts">
+import { Component, Vue } from 'vue-property-decorator';
 import CommentItem from '@/components/CommentItem.vue';
 
-export default {
-  name: 'SendCommentArea',
+@Component({
   components: {
     CommentItem,
   },
-  data() {
-    return {
-      comment:
-        'Quisque convallis nec est nec maximus. Sed lacus est, congue ac metus vel, lacinia interdum nisl. Integer sit amet fndfj fbhfg bg drgtd',
-    };
-  },
-};
+})
+export default class SendCommentArea extends Vue {
+  comment= 'Quisque convallis nec est nec maximus. Sed lacus est, congue ac metus vel, lacinia interdum nisl. Integer sit amet fndfj fbhfg bg drgtd';
+}
 </script>
 
 <style scoped lang="scss">

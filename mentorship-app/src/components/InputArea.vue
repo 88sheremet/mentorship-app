@@ -21,7 +21,7 @@
       </label>
       <button class="button-send">
         <img
-          src="../assets/popup-send-icon.png"
+          :src="closeIconImg"
           alt="Send icon"
           class="button-send__icon"
         />
@@ -29,11 +29,15 @@
     </div>
   </div>
 </template>
-<script>
-export default {
-  name: 'InputArea',
-  components: {},
-};
+<script lang="ts">
+import { Component, Vue } from 'vue-property-decorator';
+import closeIconImg from '../assets/popup-send-icon.png';
+
+@Component
+export default class CloseIconPopup extends Vue {
+  closeIconImg = closeIconImg;
+}
+
 </script>
 
 <style scoped lang="scss">
