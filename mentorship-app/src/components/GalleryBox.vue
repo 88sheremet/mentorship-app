@@ -106,17 +106,17 @@ export default class GalleryBox extends Vue {
 
   pic8 = pic8Img;
 
-  // mounted(): void {
-  //   const savedImages = localStorage.getItem('galleryAddedImages');
+  mounted(): void {
+    const savedImages = localStorage.getItem('galleryAddedImages');
 
-  //   if (savedImages) {
-  //     try {
-  //       this.addedImages = JSON.parse(savedImages);
-  //     } catch (error) {
-  //       console.error('Failed to load saved images', error);
-  //     }
-  //   }
-  // }
+    if (savedImages) {
+      try {
+        this.addedImages = JSON.parse(savedImages);
+      } catch (error) {
+        console.error('Failed to load saved images', error);
+      }
+    }
+  }
 
   openModal(): void {
     this.isModalOpen = true;

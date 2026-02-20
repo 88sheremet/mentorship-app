@@ -65,16 +65,13 @@ import likeIcon from '../assets/popup-like-icon.png';
   },
 })
 export default class ModalCard extends Vue {
-  // ===== Props =====
   @Prop({ type: Boolean, required: true })
   readonly visible!: boolean
 
-  // ===== Data =====
   dislike: string = dislikeIcon
 
   like: string = likeIcon
 
-  // ===== Lifecycle =====
   mounted(): void {
     document.addEventListener('keydown', this.onEsc);
   }
@@ -83,7 +80,6 @@ export default class ModalCard extends Vue {
     document.removeEventListener('keydown', this.onEsc);
   }
 
-  // ===== Methods =====
   close(): void {
     this.$emit('close');
   }
