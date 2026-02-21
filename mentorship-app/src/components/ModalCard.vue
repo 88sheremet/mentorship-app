@@ -13,27 +13,28 @@
         <div class="modal__wrapper">
           <div class="modal__wrapper-left">
             <img
-              src="../assets/popup-pic1.png"
+              v-if="image"
+              :src="image"
               alt="Picture"
               class="modal__wrapper-left-img"
             />
             <div class="modal__wrapper-left-bottom-box">
-              <div class="dislike-box likes-box">
+              <button class="dislike-box likes-box" @click="dislikeImage">
                 <div class="dislike-box__content likes-box__content">
                   <img :src="dislike" alt="" class="likes-box__content-img" />
                   <div class="dislike-circle likes-circle">
-                    <p class="dislike-circle-text likes-circle-text">7</p>
+                    <p class="dislike-circle-text likes-circle-text">  {{ dislikes }}</p>
                   </div>
                 </div>
-              </div>
-              <div class="like-box likes-box">
+              </button>
+              <button class="like-box likes-box" @click="likeImage">
                 <div class="like-box__content likes-box__content">
                   <img :src="like" alt="" class="likes-box__content-img" />
                   <div class="like-circle likes-circle">
-                    <p class="like-circle-text likes-circle-text">10</p>
+                    <p class="like-circle-text likes-circle-text">  {{ likes }}</p>
                   </div>
                 </div>
-              </div>
+              </button>
             </div>
           </div>
           <div class="modal__wrapper-right">
@@ -68,6 +69,15 @@ export default class ModalCard extends Vue {
   @Prop({ type: Boolean, required: true })
   readonly visible!: boolean
 
+  @Prop({ default: null })
+  readonly image!: string | null
+
+  @Prop({ required: true })
+  readonly likes!: number
+
+  @Prop({ required: true })
+  readonly dislikes!: number
+
   dislike: string = dislikeIcon
 
   like: string = likeIcon
@@ -89,19 +99,28 @@ export default class ModalCard extends Vue {
       this.close();
     }
   }
+
+  likeImage(): void {
+    this.$emit('like');
+  }
+
+  dislikeImage(): void {
+    this.$emit('dislike');
+  }
 }
 </script>
 
 <style lang="scss">
 .modal-overlay {
   position: fixed;
-  inset: 0;
   background: rgba(211, 211, 211, 0.5);
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 1000;
-  width: 1024px;
+  inset: 0;
+  width: 100%;
+  height: 100%;
 }
 
 .modal {
