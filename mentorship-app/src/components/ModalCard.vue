@@ -60,14 +60,10 @@ import CloseIconPopup from '@/components/CloseIconPopup.vue';
 
 import SendCommentArea from '@/components/SendCommentArea.vue';
 
+import { commentService, Comment } from '@/services/comment.service';
+
 import dislikeIcon from '../assets/popup-dislike-icon.png';
 import likeIcon from '../assets/popup-like-icon.png';
-
-interface Comment {
-  person: string;
-  time: string;
-  comment: string;
-}
 
 @Component({
   components: {
@@ -91,6 +87,9 @@ export default class ModalCard extends Vue {
   @Prop({ type: Array, default: () => [] })
   readonly initialComments!: Comment[];
 
+  @Prop({ required: true })
+  readonly imageId!: number
+
   comments: Comment[] = [];
 
   dislike: string = dislikeIcon
@@ -104,10 +103,11 @@ export default class ModalCard extends Vue {
   mounted(): void {
     document.addEventListener('keydown', this.onEsc);
 
-    document.addEventListener('keydown', this.onEsc);
-    this.comments = [...this.initialComments];
+    this.comments = commentService.load(this.imageId);
 
-    this.loadComments();
+    if (!this.comments.length) {
+      this.comments = [...this.initialComments];
+    }
   }
 
   loadComments(): void {
@@ -170,6 +170,8 @@ export default class ModalCard extends Vue {
 
     const updatedComments = [...this.comments, newComment];
 
+    commentService.save(this.imageId, updatedComments);
+
     this.$emit('update:comments', updatedComments);
   }
 }
@@ -225,6 +227,9 @@ export default class ModalCard extends Vue {
   display: flex;
   justify-content: end;
   gap: 6px;
+}
+.modal__wrapper-left ::v-deep img{
+  max-width: 400px;
 }
 .dislike-box {
   background: #d02828;

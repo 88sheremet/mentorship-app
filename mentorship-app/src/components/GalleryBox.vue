@@ -32,6 +32,8 @@ import { Component, Vue } from 'vue-property-decorator';
 import AddImageCard from '@/components/AddImageCard.vue';
 import ModalCard from '@/components/ModalCard.vue';
 
+import { galleryService, GalleryImage, Comment } from '@/services/gallery.service';
+
 import pic1 from '@/assets/pic1.png';
 import pic2 from '@/assets/pic2.png';
 import pic3 from '@/assets/pic3.png';
@@ -39,20 +41,6 @@ import pic4 from '@/assets/pic4.png';
 import pic6 from '@/assets/pic6.png';
 import pic7 from '@/assets/pic7.png';
 import pic8 from '@/assets/pic8.png';
-
-interface Comment {
-  person: string;
-  time: string;
-  comment: string;
-}
-
-interface GalleryImage {
-  id: number;
-  src: string;
-  likes: number;
-  dislikes: number;
-  comments: Comment[];
-}
 
 @Component({
   components: { AddImageCard, ModalCard },
@@ -104,21 +92,21 @@ export default class GalleryBox extends Vue {
   handleLike(): void {
     if (this.currentImage) {
       this.currentImage.likes += 1;
-      this.saveImages();
+      galleryService.save(this.images);
     }
   }
 
   handleDislike(): void {
     if (this.currentImage) {
       this.currentImage.dislikes += 1;
-      this.saveImages();
+      galleryService.save(this.images);
     }
   }
 
   handleCommentsUpdate(updatedComments: Comment[]): void {
     if (this.currentImage) {
       this.currentImage.comments = updatedComments;
-      this.saveImages();
+      galleryService.save(this.images);
     }
   }
 
@@ -129,17 +117,15 @@ export default class GalleryBox extends Vue {
       const result = event.target?.result;
 
       if (typeof result === 'string') {
-        const newId = this.generateUniqueId();
-
         this.images.push({
-          id: newId,
+          id: galleryService.generateUniqueId(),
           src: result,
           likes: 0,
           dislikes: 0,
           comments: [],
         });
 
-        this.saveImages();
+        galleryService.save(this.images);
       }
     };
 
@@ -177,7 +163,11 @@ export default class GalleryBox extends Vue {
   }
 
   mounted(): void {
-    this.loadImages();
+    const savedImages = galleryService.load();
+
+    if (savedImages.length) {
+      this.images = savedImages;
+    }
   }
 }
 </script>

@@ -13,7 +13,7 @@
     </div>
 
     <div v-else class="no-comments">
-      <p>No comments yet.</p>
+      <p>No comments yet</p>
     </div>
 
     <AddCommentForm @submit-comment="onSubmitComment" />
