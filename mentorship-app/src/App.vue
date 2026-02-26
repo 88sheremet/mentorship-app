@@ -70,14 +70,6 @@ button {
   cursor: pointer;
 }
 
-// body{
-//     background: var(--background-color);
-//     color: var(--white-color);
-//     font-family: 'Inter', sans-serif;
-//     letter-spacing: 0.03em;
-//     font-weight: 400;
-// }
-
 ul{
   list-style: none;
 }

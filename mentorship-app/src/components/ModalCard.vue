@@ -39,8 +39,10 @@
           </div>
           <div class="modal__wrapper-right">
             <CloseIconPopup class="close-icon-popup" @click="close" />
-            <SendCommentArea />
-            <InputArea />
+            <SendCommentArea
+              :comments="comments"
+              @add-comment="handleAddComment"/>
+            <!-- <InputArea /> -->
           </div>
         </div>
       </div>
@@ -49,20 +51,28 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop } from 'vue-property-decorator';
+
+import {
+  Component, Vue, Prop, Watch,
+} from 'vue-property-decorator';
 
 import CloseIconPopup from '@/components/CloseIconPopup.vue';
+
 import SendCommentArea from '@/components/SendCommentArea.vue';
-import InputArea from '@/components/InputArea.vue';
 
 import dislikeIcon from '../assets/popup-dislike-icon.png';
 import likeIcon from '../assets/popup-like-icon.png';
+
+interface Comment {
+  person: string;
+  time: string;
+  comment: string;
+}
 
 @Component({
   components: {
     CloseIconPopup,
     SendCommentArea,
-    InputArea,
   },
 })
 export default class ModalCard extends Vue {
@@ -78,12 +88,48 @@ export default class ModalCard extends Vue {
   @Prop({ required: true })
   readonly dislikes!: number
 
+  @Prop({ type: Array, default: () => [] })
+  readonly initialComments!: Comment[];
+
+  comments: Comment[] = [];
+
   dislike: string = dislikeIcon
 
   like: string = likeIcon
 
+  private get storageKey(): string {
+    return `image_comments_${this.image}`;
+  }
+
   mounted(): void {
     document.addEventListener('keydown', this.onEsc);
+
+    document.addEventListener('keydown', this.onEsc);
+    this.comments = [...this.initialComments];
+
+    this.loadComments();
+  }
+
+  loadComments(): void {
+    const savedComments = localStorage.getItem(this.storageKey);
+    if (savedComments) {
+      try {
+        this.comments = JSON.parse(savedComments);
+      } catch (e) {
+        console.error('Error loading comments from localStorage', e);
+        this.comments = [...this.initialComments];
+      }
+    } else {
+      this.comments = [...this.initialComments];
+    }
+  }
+
+  saveComments(): void {
+    try {
+      localStorage.setItem(this.storageKey, JSON.stringify(this.comments));
+    } catch (e) {
+      console.error('Error saving comments to localStorage', e);
+    }
   }
 
   beforeDestroy(): void {
@@ -106,6 +152,25 @@ export default class ModalCard extends Vue {
 
   dislikeImage(): void {
     this.$emit('dislike');
+  }
+
+  @Watch('visible')
+  onVisibleChange(newVal: boolean) {
+    if (newVal && this.initialComments.length > 0) {
+      this.comments = [...this.initialComments];
+    }
+  }
+
+  handleAddComment(commentData: { person: string; comment: string }): void {
+    const newComment: Comment = {
+      person: commentData.person,
+      time: new Date().toLocaleString(),
+      comment: commentData.comment,
+    };
+
+    const updatedComments = [...this.comments, newComment];
+
+    this.$emit('update:comments', updatedComments);
   }
 }
 </script>
@@ -148,6 +213,8 @@ export default class ModalCard extends Vue {
 }
 .modal__wrapper-left {
   position: relative;
+  width: 450px;
+  height: 555px;
 }
 .modal__wrapper-left-bottom-box {
   position: absolute;

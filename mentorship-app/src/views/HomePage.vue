@@ -5,8 +5,6 @@
     </h1>
 
     <GalleryBox />
-
-    <!-- <ScrollBar /> -->
   </div>
 </template>
 
@@ -14,12 +12,10 @@
 import { Component, Vue } from 'vue-property-decorator';
 
 import GalleryBox from '@/components/GalleryBox.vue';
-// import ScrollBar from '@/components/ScrollBar.vue';
 
 @Component({
   components: {
     GalleryBox,
-    // ScrollBar,
   },
 })
 export default class HomePage extends Vue {}
