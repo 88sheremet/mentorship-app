@@ -5,7 +5,7 @@
         <img
         :src="image.src"
         alt="Image"
-        :class="`box3__inner-box${index + 3}`"/>
+        class="image-wrapper_image"/>
       </button>
     </div>
 
@@ -187,56 +187,6 @@ export default class GalleryBox extends Vue {
   flex-direction: column;
 }
 
-.box2 {
-  display: flex;
-  margin-left: -8px;
-}
-
-.box__horizontal2 {
-  display: flex;
-  margin-top: -12px;
-}
-
-.box__inner-img-third {
-  margin-top: -8px;
-}
-
-.box__vertical2 {
-  display: flex;
-  flex-direction: column;
-  margin-left: -8px;
-}
-
-.box3 {
-  display: flex;
-  margin-top: -12px;
-  align-items: flex-start;
-  gap: 0;
-  position: relative;
-  flex-wrap: wrap;
-}
-
-.box3__inner-box {
-  flex-shrink: 0;
-  margin-right: 0;
-}
-
-.box3__inner-box2 {
-  margin-left: -7px;
-}
-
-.box3__inner-box3 {
-  margin-left: -8px;
-}
-
-.box3__inner-box4 {
-  margin-left: -8px;
-}
-
-.box3__inner-box5 {
-  margin-left: -8px;
-}
-
 .added-image-wrapper {
   cursor: pointer;
   border: none;
@@ -248,7 +198,10 @@ export default class GalleryBox extends Vue {
     opacity: 0.8;
   }
 }
-
+.image-wrapper_image{
+  width: 254px;
+  height: 218px;
+}
 .added-image {
   display: block;
   max-width: 300px;
@@ -260,36 +213,5 @@ export default class GalleryBox extends Vue {
   margin: 0 auto;
   max-width: 980px;
 }
-.box3__inner-box10{
-  width: 240px;
-  height: 210px;
-}
-.box3__inner-box11{
-  width: 240px;
-  height: 210px;
-}
-.box3__inner-box12{
-  width: 240px;
-  height: 210px;
-}
-.box3__inner-box13{
-  width: 240px;
-  height: 210px;
-}
-.box3__inner-box14{
-  width: 240px;
-  height: 210px;
-}
-.box3__inner-box15{
-  width: 240px;
-  height: 210px;
-}
-.box3__inner-box16{
-  width: 240px;
-  height: 210px;
-}
-.box3__inner-box17{
-  width: 240px;
-  height: 210px;
-}
+
 </style>

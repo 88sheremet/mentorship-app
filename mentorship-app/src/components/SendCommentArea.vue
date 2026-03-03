@@ -75,7 +75,6 @@ export default class SendCommentArea extends Vue {
   margin-bottom: 15px;
   padding-left: 33px;
 
-  /* Firefox */
   scrollbar-width: thin;
   scrollbar-color: #21b8c6 #e0e0e0;
 

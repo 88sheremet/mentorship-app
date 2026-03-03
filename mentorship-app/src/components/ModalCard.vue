@@ -170,6 +170,8 @@ export default class ModalCard extends Vue {
 
     const updatedComments = [...this.comments, newComment];
 
+    this.comments = updatedComments;
+
     commentService.save(this.imageId, updatedComments);
 
     this.$emit('update:comments', updatedComments);
@@ -228,7 +230,7 @@ export default class ModalCard extends Vue {
   justify-content: end;
   gap: 6px;
 }
-.modal__wrapper-left ::v-deep img{
+.modal__wrapper-left-img{
   max-width: 400px;
 }
 .dislike-box {
