@@ -1,12 +1,19 @@
 <template>
   <div class="wrapper">
     <div v-for="(image, index) in images" :key="index" class="image-wrapper">
-      <button @click="openModal(index)">
+      <!-- <button @click="openModal(index)">
         <img
         :src="image.src"
         alt="Image"
         class="image-wrapper_image"/>
-      </button>
+      </button> -->
+        <CardWithComments
+        :main-image="image.src"
+    :comments-count="image.comments.length"
+    :dislikes-count="image.dislikes"
+    :likes-count="image.likes"
+    @click.native="openModal(index)"
+        />
     </div>
 
     <AddImageCard @add-image="handleAddImage" />
@@ -31,6 +38,7 @@
 import { Component, Vue } from 'vue-property-decorator';
 import AddImageCard from '@/components/AddImageCard.vue';
 import ModalCard from '@/components/ModalCard.vue';
+import CardWithComments from '@/components/CardWithComments.vue';
 
 import { galleryService, GalleryImage, Comment } from '@/services/gallery.service';
 
@@ -43,7 +51,7 @@ import pic7 from '@/assets/pic7.png';
 import pic8 from '@/assets/pic8.png';
 
 @Component({
-  components: { AddImageCard, ModalCard },
+  components: { AddImageCard, ModalCard, CardWithComments },
 })
 export default class GalleryBox extends Vue {
   isModalOpen = false;
@@ -52,25 +60,25 @@ export default class GalleryBox extends Vue {
 
   images: GalleryImage[] = [
     {
-      id: 1, src: pic1, likes: 0, dislikes: 0, comments: [],
+      id: 867866, src: pic1, likes: 0, dislikes: 0, comments: [],
     },
     {
-      id: 2, src: pic2, likes: 0, dislikes: 0, comments: [],
+      id: 345342, src: pic2, likes: 0, dislikes: 0, comments: [],
     },
     {
-      id: 3, src: pic3, likes: 0, dislikes: 0, comments: [],
+      id: 545653, src: pic3, likes: 0, dislikes: 0, comments: [],
     },
     {
-      id: 4, src: pic4, likes: 0, dislikes: 0, comments: [],
+      id: 36564, src: pic4, likes: 0, dislikes: 0, comments: [],
     },
     {
-      id: 5, src: pic6, likes: 0, dislikes: 0, comments: [],
+      id: 323465, src: pic6, likes: 0, dislikes: 0, comments: [],
     },
     {
-      id: 6, src: pic7, likes: 0, dislikes: 0, comments: [],
+      id: 685686, src: pic7, likes: 0, dislikes: 0, comments: [],
     },
     {
-      id: 7, src: pic8, likes: 0, dislikes: 0, comments: [],
+      id: 6869687, src: pic8, likes: 0, dislikes: 0, comments: [],
     },
   ];
 

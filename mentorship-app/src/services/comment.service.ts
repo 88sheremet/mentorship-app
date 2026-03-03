@@ -4,7 +4,7 @@ export interface Comment {
   comment: string;
 }
 
-const getStorageKey = (imageId: number): string => `image_comments_${imageId}`;
+const getStorageKey = (imageId: number): string => `${imageId}`;
 
 export const commentService = {
   load(imageId: number): Comment[] {

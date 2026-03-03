@@ -97,7 +97,7 @@ export default class ModalCard extends Vue {
   like: string = likeIcon
 
   private get storageKey(): string {
-    return `image_comments_${this.image}`;
+    return `${this.image}`;
   }
 
   mounted(): void {

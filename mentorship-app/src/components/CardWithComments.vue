@@ -48,28 +48,27 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
+import { Component, Vue, Prop } from 'vue-property-decorator';
 
-import mainImage from '../assets/pic5.png';
 import commentIconImg from '../assets/comment-icon.png';
 import dislikeIconImg from '../assets/dislike-icon.png';
 import likeIconImg from '../assets/like-icon.png';
 
 @Component
 export default class CardWithComments extends Vue {
-  mainImage = mainImage;
+  @Prop({ required: true }) readonly mainImage!: string
+
+  @Prop({ required: true }) readonly commentsCount!: number
+
+  @Prop({ required: true }) readonly dislikesCount!: number
+
+  @Prop({ required: true }) readonly likesCount!: number
 
   commentIcon = commentIconImg;
 
   dislikeIcon = dislikeIconImg;
 
   likeIcon = likeIconImg;
-
-  commentsCount = 3;
-
-  dislikesCount = 5;
-
-  likesCount = 10;
 }
 </script>
 
@@ -141,5 +140,9 @@ export default class CardWithComments extends Vue {
   position: absolute;
   left: 0;
   bottom: 0;
+}
+.box__inner-img{
+  width: 254px;
+  height: 218px;
 }
 </style>
