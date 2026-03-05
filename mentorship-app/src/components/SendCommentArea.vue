@@ -43,8 +43,8 @@ export default class SendCommentArea extends Vue {
   @Prop({ type: Array, default: () => [] })
   readonly comments!: Comment[];
 
-  @Prop({ type: [String, Number], required: true })
-  readonly imageId!: string | number;
+  // @Prop({ type: [String, Number], required: true })
+  // readonly imageId!: string | number;
 
   get commentsCount(): number {
     return this.comments.length;

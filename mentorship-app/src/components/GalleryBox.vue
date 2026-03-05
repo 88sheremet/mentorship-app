@@ -1,18 +1,12 @@
 <template>
   <div class="wrapper">
     <div v-for="(image, index) in images" :key="index" class="image-wrapper">
-      <!-- <button @click="openModal(index)">
-        <img
-        :src="image.src"
-        alt="Image"
-        class="image-wrapper_image"/>
-      </button> -->
         <CardWithComments
         :main-image="image.src"
-    :comments-count="image.comments.length"
-    :dislikes-count="image.dislikes"
-    :likes-count="image.likes"
-    @click.native="openModal(index)"
+        :comments-count="image.comments.length"
+        :dislikes-count="image.dislikes"
+        :likes-count="image.likes"
+        @click.native="openModal(index)"
         />
     </div>
 
@@ -22,7 +16,6 @@
       v-if="currentImage"
       :visible="isModalOpen"
       :image="currentImage.src"
-      :image-id="currentImage.id"
       :likes="currentImage.likes"
       :dislikes="currentImage.dislikes"
       :initial-comments="currentImage.comments"
@@ -188,6 +181,7 @@ export default class GalleryBox extends Vue {
   margin-bottom: 31px;
   position: relative;
   max-width: 995px;
+  gap: 10px;
 }
 
 .box {
@@ -207,8 +201,8 @@ export default class GalleryBox extends Vue {
   }
 }
 .image-wrapper_image{
-  width: 254px;
-  height: 218px;
+  width: 236px;
+  height: 200px;
 }
 .added-image {
   display: block;
@@ -221,5 +215,9 @@ export default class GalleryBox extends Vue {
   margin: 0 auto;
   max-width: 980px;
 }
-
+.image-wrapper{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 </style>

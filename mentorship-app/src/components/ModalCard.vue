@@ -42,7 +42,6 @@
             <SendCommentArea
               :comments="comments"
               @add-comment="handleAddComment"/>
-            <!-- <InputArea /> -->
           </div>
         </div>
       </div>
@@ -60,7 +59,7 @@ import CloseIconPopup from '@/components/CloseIconPopup.vue';
 
 import SendCommentArea from '@/components/SendCommentArea.vue';
 
-import { commentService, Comment } from '@/services/comment.service';
+import { Comment } from '@/services/comment.service';
 
 import dislikeIcon from '../assets/popup-dislike-icon.png';
 import likeIcon from '../assets/popup-like-icon.png';
@@ -87,49 +86,16 @@ export default class ModalCard extends Vue {
   @Prop({ type: Array, default: () => [] })
   readonly initialComments!: Comment[];
 
-  @Prop({ required: true })
-  readonly imageId!: number
-
   comments: Comment[] = [];
 
   dislike: string = dislikeIcon
 
   like: string = likeIcon
 
-  private get storageKey(): string {
-    return `${this.image}`;
-  }
-
   mounted(): void {
     document.addEventListener('keydown', this.onEsc);
 
-    this.comments = commentService.load(this.imageId);
-
-    if (!this.comments.length) {
-      this.comments = [...this.initialComments];
-    }
-  }
-
-  loadComments(): void {
-    const savedComments = localStorage.getItem(this.storageKey);
-    if (savedComments) {
-      try {
-        this.comments = JSON.parse(savedComments);
-      } catch (e) {
-        console.error('Error loading comments from localStorage', e);
-        this.comments = [...this.initialComments];
-      }
-    } else {
-      this.comments = [...this.initialComments];
-    }
-  }
-
-  saveComments(): void {
-    try {
-      localStorage.setItem(this.storageKey, JSON.stringify(this.comments));
-    } catch (e) {
-      console.error('Error saving comments to localStorage', e);
-    }
+    this.comments = [...this.initialComments];
   }
 
   beforeDestroy(): void {
@@ -171,8 +137,6 @@ export default class ModalCard extends Vue {
     const updatedComments = [...this.comments, newComment];
 
     this.comments = updatedComments;
-
-    commentService.save(this.imageId, updatedComments);
 
     this.$emit('update:comments', updatedComments);
   }

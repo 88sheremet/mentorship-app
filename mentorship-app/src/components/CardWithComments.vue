@@ -74,7 +74,6 @@ export default class CardWithComments extends Vue {
 
 <style scoped lang="scss">
 .button-card {
-  margin-left: -8px;
   position: relative;
 
   &:hover {
@@ -89,7 +88,7 @@ export default class CardWithComments extends Vue {
   position: absolute;
   bottom: 0;
   left: 0;
-  width: 227px;
+  width: 219px;
   height: 60px;
   background: #f5f7f4;
   padding-left: 9px;
@@ -142,7 +141,7 @@ export default class CardWithComments extends Vue {
   bottom: 0;
 }
 .box__inner-img{
-  width: 254px;
-  height: 218px;
+  width: 236px;
+  height: 200px;
 }
 </style>
