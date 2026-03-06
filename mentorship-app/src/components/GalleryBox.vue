@@ -176,12 +176,30 @@ export default class GalleryBox extends Vue {
 <style scoped lang="scss">
 .wrapper {
   display: flex;
-  width: 995px;
+  width: 994px;
+  flex-direction: column;
   flex-wrap: wrap;
   margin-bottom: 31px;
+  height: 650px;
   position: relative;
   max-width: 995px;
-  gap: 10px;
+  padding-bottom: 30px;
+  overflow-x: auto;
+  gap: 15px;
+}
+
+.wrapper::-webkit-scrollbar {
+  height: 8px; /* высота горизонтального скролла */
+}
+
+.wrapper::-webkit-scrollbar-track {
+  background: #d1dae3;
+  border-radius: 10px;
+}
+
+.wrapper::-webkit-scrollbar-thumb {
+  background: #21b8c6;
+  border-radius: 10px;
 }
 
 .box {
