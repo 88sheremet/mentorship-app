@@ -59,7 +59,6 @@ export default class AddImageCard extends Vue {
 .add-image-card {
   cursor: pointer;
   position: relative;
-  margin-left: -8px;
 }
 .add-image-card__inner-wrapper {
   position: absolute;

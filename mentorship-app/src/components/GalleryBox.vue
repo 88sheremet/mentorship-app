@@ -1,129 +1,114 @@
 <template>
   <div class="wrapper">
-    <div class="box">
-      <div class="box__horizontal">
-        <button class="box__horizontal-wrapper" @click="openModal">
-          <img class="box__inner-img" :src="pic1" alt="Image" />
-        </button>
-      </div>
-
-      <div class="box__horizontal2">
-        <button class="box__horizontal2-wrapper">
-          <img class="box__inner-img" :src="pic4" alt="Image" />
-        </button>
-
-        <CardWithComments />
-      </div>
+    <div v-for="(image, index) in images" :key="index" class="image-wrapper">
+        <CardWithComments
+        :main-image="image.src"
+        :comments-count="image.comments.length"
+        :dislikes-count="image.dislikes"
+        :likes-count="image.likes"
+        @click.native="openModal(index)"
+        />
     </div>
 
-    <div class="box2">
-      <div class="box__vertical1">
-        <button class="box__vertical1">
-          <img class="box__inner-img" :src="pic2" alt="Image" />
-        </button>
-      </div>
+    <AddImageCard @add-image="handleAddImage" />
 
-      <div class="box__vertical2">
-        <button class="box__vertical2-wrapper">
-          <img class="box__inner-img" :src="pic3" alt="Image" />
-        </button>
-
-        <button class="box__vertical2-wrapper">
-          <img
-            class="box__inner-img box__inner-img-third"
-            :src="pic6"
-            alt="Image"
-          />
-        </button>
-      </div>
-    </div>
-
-    <div class="box3">
-      <div class="box3__inner-box box3__inner-box1">
-        <img :src="pic7" alt="Image" />
-      </div>
-
-      <div class="box3__inner-box box3__inner-box2">
-        <img :src="pic8" alt="Image" />
-      </div>
-
-      <div
-        v-for="(image, index) in addedImages"
-        :key="index"
-        class="box3__inner-box dynamic-image"
-        :class="`box3__inner-box${index + 3}`"
-      >
-        <button class="added-image-wrapper" @click="openModal">
-          <img :src="image" alt="Added image" class="added-image" />
-        </button>
-      </div>
-
-      <AddImageCard @add-image="handleAddImage" />
-    </div>
-
-    <ModalCard :visible="isModalOpen" @close="closeModal" />
+    <ModalCard
+      v-if="currentImage"
+      :visible="isModalOpen"
+      :image="currentImage.src"
+      :likes="currentImage.likes"
+      :dislikes="currentImage.dislikes"
+      :initial-comments="currentImage.comments"
+      @close="closeModal"
+      @like="handleLike"
+      @dislike="handleDislike"
+      @update:comments="handleCommentsUpdate"
+    />
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-
 import AddImageCard from '@/components/AddImageCard.vue';
 import ModalCard from '@/components/ModalCard.vue';
 import CardWithComments from '@/components/CardWithComments.vue';
 
-import pic1Img from '@/assets/pic1.png';
-import pic2Img from '@/assets/pic2.png';
-import pic3Img from '@/assets/pic3.png';
-import pic4Img from '@/assets/pic4.png';
-import pic6Img from '@/assets/pic6.png';
-import pic7Img from '@/assets/pic7.png';
-import pic8Img from '@/assets/pic8.png';
+import { galleryService, GalleryImage, Comment } from '@/services/gallery.service';
+
+import pic1 from '@/assets/pic1.png';
+import pic2 from '@/assets/pic2.png';
+import pic3 from '@/assets/pic3.png';
+import pic4 from '@/assets/pic4.png';
+import pic6 from '@/assets/pic6.png';
+import pic7 from '@/assets/pic7.png';
+import pic8 from '@/assets/pic8.png';
 
 @Component({
-  components: {
-    AddImageCard,
-    ModalCard,
-    CardWithComments,
-  },
+  components: { AddImageCard, ModalCard, CardWithComments },
 })
 export default class GalleryBox extends Vue {
   isModalOpen = false;
 
-  addedImages: string[] = [];
+  selectedIndex: number | null = null;
 
-  pic1 = pic1Img;
+  images: GalleryImage[] = [
+    {
+      id: 867866, src: pic1, likes: 0, dislikes: 0, comments: [],
+    },
+    {
+      id: 345342, src: pic2, likes: 0, dislikes: 0, comments: [],
+    },
+    {
+      id: 545653, src: pic3, likes: 0, dislikes: 0, comments: [],
+    },
+    {
+      id: 36564, src: pic4, likes: 0, dislikes: 0, comments: [],
+    },
+    {
+      id: 323465, src: pic6, likes: 0, dislikes: 0, comments: [],
+    },
+    {
+      id: 685686, src: pic7, likes: 0, dislikes: 0, comments: [],
+    },
+    {
+      id: 6869687, src: pic8, likes: 0, dislikes: 0, comments: [],
+    },
+  ];
 
-  pic2 = pic2Img;
+  get currentImage(): GalleryImage | null {
+    if (this.selectedIndex === null) return null;
+    return this.images[this.selectedIndex];
+  }
 
-  pic3 = pic3Img;
-
-  pic4 = pic4Img;
-
-  pic6 = pic6Img;
-
-  pic7 = pic7Img;
-
-  pic8 = pic8Img;
-
-  // mounted(): void {
-  //   const savedImages = localStorage.getItem('galleryAddedImages');
-
-  //   if (savedImages) {
-  //     try {
-  //       this.addedImages = JSON.parse(savedImages);
-  //     } catch (error) {
-  //       console.error('Failed to load saved images', error);
-  //     }
-  //   }
-  // }
-
-  openModal(): void {
+  openModal(index: number): void {
+    this.selectedIndex = index;
     this.isModalOpen = true;
   }
 
   closeModal(): void {
     this.isModalOpen = false;
+    this.selectedIndex = null;
+  }
+
+  handleLike(): void {
+    if (this.currentImage) {
+      this.currentImage.likes += 1;
+      galleryService.save(this.images);
+    }
+  }
+
+  handleDislike(): void {
+    if (this.currentImage) {
+      this.currentImage.dislikes += 1;
+      galleryService.save(this.images);
+    }
+  }
+
+  handleCommentsUpdate(updatedComments: Comment[]): void {
+    if (this.currentImage) {
+      this.currentImage.comments = updatedComments;
+      galleryService.save(this.images);
+    }
   }
 
   handleAddImage(file: File): void {
@@ -133,16 +118,57 @@ export default class GalleryBox extends Vue {
       const result = event.target?.result;
 
       if (typeof result === 'string') {
-        this.addedImages.push(result);
+        this.images.push({
+          id: galleryService.generateUniqueId(),
+          src: result,
+          likes: 0,
+          dislikes: 0,
+          comments: [],
+        });
 
-        localStorage.setItem(
-          'galleryAddedImages',
-          JSON.stringify(this.addedImages),
-        );
+        galleryService.save(this.images);
       }
     };
 
     reader.readAsDataURL(file);
+  }
+
+  // eslint-disable-next-line class-methods-use-this
+  generateUniqueId(): number {
+    const newId = Date.now() + Math.floor(Math.random() * 1000);
+    return newId;
+  }
+
+  saveImages(): void {
+    try {
+      localStorage.setItem('galleryImages', JSON.stringify(this.images));
+    } catch (error) {
+      console.error('Failed to save images', error);
+    }
+  }
+
+  loadImages(): void {
+    const savedImages = localStorage.getItem('galleryImages');
+
+    if (savedImages) {
+      try {
+        const parsed = JSON.parse(savedImages);
+        this.images = parsed.map((img: any) => ({
+          ...img,
+          comments: img.comments || [],
+        }));
+      } catch (error) {
+        console.error('Failed to load images', error);
+      }
+    }
+  }
+
+  mounted(): void {
+    const savedImages = galleryService.load();
+
+    if (savedImages.length) {
+      this.images = savedImages;
+    }
   }
 }
 </script>
@@ -150,66 +176,35 @@ export default class GalleryBox extends Vue {
 <style scoped lang="scss">
 .wrapper {
   display: flex;
-  width: 995px;
+  width: 994px;
+  flex-direction: column;
   flex-wrap: wrap;
   margin-bottom: 31px;
+  height: 650px;
   position: relative;
   max-width: 995px;
+  padding-bottom: 30px;
+  overflow-x: auto;
+  gap: 15px;
+}
+
+.wrapper::-webkit-scrollbar {
+  height: 8px;
+}
+
+.wrapper::-webkit-scrollbar-track {
+  background: #d1dae3;
+  border-radius: 10px;
+}
+
+.wrapper::-webkit-scrollbar-thumb {
+  background: #21b8c6;
+  border-radius: 10px;
 }
 
 .box {
   display: flex;
   flex-direction: column;
-}
-
-.box2 {
-  display: flex;
-  margin-left: -8px;
-}
-
-.box__horizontal2 {
-  display: flex;
-  margin-top: -12px;
-}
-
-.box__inner-img-third {
-  margin-top: -8px;
-}
-
-.box__vertical2 {
-  display: flex;
-  flex-direction: column;
-  margin-left: -8px;
-}
-
-.box3 {
-  display: flex;
-  margin-top: -12px;
-  align-items: flex-start;
-  gap: 0;
-  position: relative;
-  flex-wrap: wrap;
-}
-
-.box3__inner-box {
-  flex-shrink: 0;
-  margin-right: 0;
-}
-
-.box3__inner-box2 {
-  margin-left: -7px;
-}
-
-.box3__inner-box3 {
-  margin-left: -8px;
-}
-
-.box3__inner-box4 {
-  margin-left: -8px;
-}
-
-.box3__inner-box5 {
-  margin-left: -8px;
 }
 
 .added-image-wrapper {
@@ -223,16 +218,24 @@ export default class GalleryBox extends Vue {
     opacity: 0.8;
   }
 }
-
+.image-wrapper_image{
+  width: 236px;
+  height: 200px;
+}
 .added-image {
   display: block;
-  max-width: 100%;
-  height: auto;
+  max-width: 300px;
+  width: 240px;
+  height: 210px;
 }
 
 .dynamic-image {
   margin: 0 auto;
   max-width: 980px;
 }
-
+.image-wrapper{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 </style>

@@ -3,6 +3,7 @@
     <label for="nickname">
       <input
         id="nickname"
+        v-model="nickname"
         class=""
         name="nickname"
         type="text"
@@ -15,11 +16,12 @@
           id="comment"
           class=""
           name="comment"
+          v-model="commentText"
           type="text"
           placeholder="Write your comment here..."
         />
       </label>
-      <button class="button-send">
+      <button class="button-send" @click="submitComment">
         <img
           :src="closeIconImg"
           alt="Send icon"
@@ -30,12 +32,40 @@
   </div>
 </template>
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
+import { Component, Vue, Emit } from 'vue-property-decorator';
 import closeIconImg from '../assets/popup-send-icon.png';
 
 @Component
 export default class CloseIconPopup extends Vue {
   closeIconImg = closeIconImg;
+
+  nickname = '';
+
+  commentText = '';
+
+  get isFormValid(): boolean {
+    return this.nickname.trim() !== '' && this.commentText.trim() !== '';
+  }
+
+  @Emit('submit-comment')
+  submitComment(): { person: string; comment: string } | null {
+    if (!this.isFormValid) {
+      return null;
+    }
+
+    const commentData = {
+      person: this.nickname.trim(),
+      comment: this.commentText.trim(),
+    };
+
+    this.clearForm();
+    return commentData;
+  }
+
+  clearForm(): void {
+    this.nickname = '';
+    this.commentText = '';
+  }
 }
 
 </script>
