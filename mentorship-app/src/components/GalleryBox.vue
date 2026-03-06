@@ -189,7 +189,7 @@ export default class GalleryBox extends Vue {
 }
 
 .wrapper::-webkit-scrollbar {
-  height: 8px; /* высота горизонтального скролла */
+  height: 8px;
 }
 
 .wrapper::-webkit-scrollbar-track {

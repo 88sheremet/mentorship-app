@@ -43,9 +43,6 @@ export default class SendCommentArea extends Vue {
   @Prop({ type: Array, default: () => [] })
   readonly comments!: Comment[];
 
-  // @Prop({ type: [String, Number], required: true })
-  // readonly imageId!: string | number;
-
   get commentsCount(): number {
     return this.comments.length;
   }
@@ -75,23 +72,18 @@ export default class SendCommentArea extends Vue {
   margin-bottom: 15px;
   padding-left: 33px;
 
-  scrollbar-width: thin;
-  scrollbar-color: #21b8c6 #e0e0e0;
-
   &::-webkit-scrollbar {
-    width: 10px;
+    width: 6px;
   }
 
   &::-webkit-scrollbar-track {
     background: #e0e0e0;
-    border-radius: 20px;
+    border-radius: 10px;
   }
 
   &::-webkit-scrollbar-thumb {
     background-color: #21b8c6;
-    border-radius: 20px;
-    border: 3px solid transparent;
-    background-clip: content-box;
+    border-radius: 10px;
   }
 }
 
