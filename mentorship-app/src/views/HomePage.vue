@@ -34,7 +34,7 @@ export default class HomePage extends Vue {}
   padding-left: 8px;
 
   span {
-    color: #21b8c6;
+    color: var(--accent-color);
   }
 }
 </style>

@@ -77,18 +77,18 @@ export default class SendCommentArea extends Vue {
   }
 
   &::-webkit-scrollbar-track {
-    background: #e0e0e0;
+    background: var(--scrollbar-track-color);
     border-radius: 10px;
   }
 
   &::-webkit-scrollbar-thumb {
-    background-color: #21b8c6;
+    background-color: var(--accent-color);
     border-radius: 10px;
   }
 }
 
 .no-comments {
-  color: #999;
+  color: var( --modal-bottom-color);
   font-style: italic;
   margin-bottom: 15px;
   padding-left: 33px;

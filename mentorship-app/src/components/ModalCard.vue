@@ -146,7 +146,7 @@ export default class ModalCard extends Vue {
 <style lang="scss">
 .modal-overlay {
   position: fixed;
-  background: rgba(211, 211, 211, 0.5);
+  background: var(--modal-overlay-color);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -157,12 +157,12 @@ export default class ModalCard extends Vue {
 }
 
 .modal {
-  background: #fff;
+  background: var(--white-color);
   border-radius: 3px;
   width: 810px;
   height: 595px;
   margin-top: 19px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 2px 5px var(--modal-overlay-shadow-color);
 }
 
 .fade-enter-active,
@@ -188,7 +188,7 @@ export default class ModalCard extends Vue {
   position: absolute;
   bottom: 0;
   height: 63px;
-  background: #f3f4f2;
+  background: var(--modal-bottom-color);
   width: 451px;
   display: flex;
   justify-content: end;
@@ -198,12 +198,12 @@ export default class ModalCard extends Vue {
   max-width: 400px;
 }
 .dislike-box {
-  background: #d02828;
+  background: var(--like-box-color);
   width: 64px;
   height: 61px;
 }
 .like-box {
-  background: #e0e5e9;
+  background: var(--like-box-color);
   width: 64px;
   height: 61px;
   margin-right: 8px;
@@ -211,7 +211,7 @@ export default class ModalCard extends Vue {
 }
 .likes-circle {
   border-radius: 50%;
-  border: 2px solid #a1b1bb;
+  border: 2px solid var(--primary-text-color);
   width: 15px;
   height: 15px;
   display: flex;
@@ -220,12 +220,12 @@ export default class ModalCard extends Vue {
   position: absolute;
   top: 0;
   right: 0;
-  background: #fff;
+  background: var(--white-color);
 }
 .likes-circle-text {
   font-size: 11px;
   font-weight: 600;
-  color: #0d7f8a;
+  color: var(--circle-text-color);
 }
 .likes-box__content {
   position: relative;

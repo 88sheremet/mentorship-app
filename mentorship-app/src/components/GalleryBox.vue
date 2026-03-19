@@ -193,12 +193,12 @@ export default class GalleryBox extends Vue {
 }
 
 .wrapper::-webkit-scrollbar-track {
-  background: #d1dae3;
+  background: var(--scrollbar-color);
   border-radius: 10px;
 }
 
 .wrapper::-webkit-scrollbar-thumb {
-  background: #21b8c6;
+  background: var(--accent-color);
   border-radius: 10px;
 }
 

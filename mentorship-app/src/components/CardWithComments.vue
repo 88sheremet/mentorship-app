@@ -90,7 +90,7 @@ export default class CardWithComments extends Vue {
   left: 0;
   width: 219px;
   height: 60px;
-  background: #f5f7f4;
+  background: var(--feedbak-area-color);
   padding-left: 9px;
   padding-right: 9px;
   padding-bottom: 11px;
@@ -117,7 +117,7 @@ export default class CardWithComments extends Vue {
 
 .circle {
   border-radius: 50%;
-  border: 2px solid #a1b1bb;
+  border: 2px solid var(--primary-text-color);
   width: 14px;
   height: 14px;
   display: flex;
@@ -126,13 +126,13 @@ export default class CardWithComments extends Vue {
   position: absolute;
   top: 0;
   right: 0;
-  background: #fff;
+  background: var(--white-color);
 }
 
 .circle-text {
   font-size: 11px;
   font-weight: 600;
-  color: #0d7f8a;
+  color: var(--circle-text-color);
 }
 
 .icon {

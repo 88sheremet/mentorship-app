@@ -76,7 +76,7 @@ export default class CloseIconPopup extends Vue {
 }
 #nickname {
   border: none;
-  border-bottom: 1px solid #a1b1bb;
+  border-bottom: 1px solid var(--primary-text-color);
   padding: 4px;
   padding-left: 11px;
   font-size: 14px;
@@ -89,7 +89,7 @@ export default class CloseIconPopup extends Vue {
   width: 289px;
 }
 #comment {
-  border: 1px solid #a1b1bb;
+  border: 1px solid var(--primary-text-color);
   border-right: none;
   padding: 4px;
   padding-left: 11px;
@@ -100,7 +100,7 @@ export default class CloseIconPopup extends Vue {
   width: 223px;
 }
 .button-send {
-  background: #21b8c6;
+  background: var(--accent-color);
   border-radius: 3px;
   width: 50px;
   display: flex;
