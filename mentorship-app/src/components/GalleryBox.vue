@@ -35,14 +35,6 @@ import CardWithComments from '@/components/CardWithComments.vue';
 
 import { galleryService, GalleryImage, Comment } from '@/services/gallery.service';
 
-import pic1 from '@/assets/pic1.png';
-import pic2 from '@/assets/pic2.png';
-import pic3 from '@/assets/pic3.png';
-import pic4 from '@/assets/pic4.png';
-import pic6 from '@/assets/pic6.png';
-import pic7 from '@/assets/pic7.png';
-import pic8 from '@/assets/pic8.png';
-
 @Component({
   components: { AddImageCard, ModalCard, CardWithComments },
 })
@@ -51,29 +43,7 @@ export default class GalleryBox extends Vue {
 
   selectedIndex: number | null = null;
 
-  images: GalleryImage[] = [
-    {
-      id: 867866, src: pic1, likes: 0, dislikes: 0, comments: [],
-    },
-    {
-      id: 345342, src: pic2, likes: 0, dislikes: 0, comments: [],
-    },
-    {
-      id: 545653, src: pic3, likes: 0, dislikes: 0, comments: [],
-    },
-    {
-      id: 36564, src: pic4, likes: 0, dislikes: 0, comments: [],
-    },
-    {
-      id: 323465, src: pic6, likes: 0, dislikes: 0, comments: [],
-    },
-    {
-      id: 685686, src: pic7, likes: 0, dislikes: 0, comments: [],
-    },
-    {
-      id: 6869687, src: pic8, likes: 0, dislikes: 0, comments: [],
-    },
-  ];
+  images: GalleryImage[] = [];
 
   get currentImage(): GalleryImage | null {
     if (this.selectedIndex === null) return null;
@@ -163,11 +133,31 @@ export default class GalleryBox extends Vue {
     }
   }
 
+  async fetchImages(): Promise<void> {
+    try {
+      const response = await fetch('https://api.unsplash.com/photos/random?client_id=lViX2vRt9epgPRt_OWXB_g7Y91wdrXCyM4h9S1O4iOM&count=20');
+      const data = await response.json();
+
+      this.images = data.map((img: any) => ({
+        id: Number(img.id),
+        src: img.urls.thumb,
+        likes: 0,
+        dislikes: 0,
+        comments: [],
+      }));
+      galleryService.save(this.images);
+    } catch (error) {
+      console.error('API ERROR:', error);
+    }
+  }
+
   mounted(): void {
     const savedImages = galleryService.load();
 
     if (savedImages.length) {
       this.images = savedImages;
+    } else {
+      this.fetchImages();
     }
   }
 }

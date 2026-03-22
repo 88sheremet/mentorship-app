@@ -90,7 +90,7 @@ export default class CardWithComments extends Vue {
   left: 0;
   width: 219px;
   height: 60px;
-  background: var(--feedbak-area-color);
+  background: var(--feedback-area-color);
   padding-left: 9px;
   padding-right: 9px;
   padding-bottom: 11px;
