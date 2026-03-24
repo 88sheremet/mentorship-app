@@ -52,14 +52,14 @@
 <script lang="ts">
 
 import {
-  Component, Vue, Prop, Watch,
+  Component, Vue, Prop, Watch, Emit,
 } from 'vue-property-decorator';
 
 import CloseIconPopup from '@/components/CloseIconPopup.vue';
 
 import SendCommentArea from '@/components/SendCommentArea.vue';
 
-import { Comment } from '@/services/comment.service';
+import { Comment } from '@/interfaces/comment.interface';
 
 import dislikeIcon from '../assets/popup-dislike-icon.png';
 import likeIcon from '../assets/popup-like-icon.png';
@@ -112,13 +112,15 @@ export default class ModalCard extends Vue {
     }
   }
 
+ @Emit('like')
   likeImage(): void {
-    this.$emit('like');
+    console.log(this);
   }
 
-  dislikeImage(): void {
-    this.$emit('dislike');
-  }
+  @Emit('dislike')
+ dislikeImage(): void {
+   console.log(this);
+ }
 
   @Watch('visible')
   onVisibleChange(newVal: boolean) {
@@ -127,7 +129,8 @@ export default class ModalCard extends Vue {
     }
   }
 
-  handleAddComment(commentData: { person: string; comment: string }): void {
+  @Emit('update:comments')
+  handleAddComment(commentData: { person: string; comment: string }): Comment[] {
     const newComment: Comment = {
       person: commentData.person,
       time: new Date().toLocaleString(),
@@ -138,7 +141,7 @@ export default class ModalCard extends Vue {
 
     this.comments = updatedComments;
 
-    this.$emit('update:comments', updatedComments);
+    return updatedComments;
   }
 }
 </script>

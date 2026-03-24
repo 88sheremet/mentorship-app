@@ -1,20 +1,8 @@
-export interface Comment {
-  person: string;
-  time: string;
-  comment: string;
-}
-
-export interface GalleryImage {
-  id: number;
-  src: string;
-  likes: number;
-  dislikes: number;
-  comments: Comment[];
-}
+import { GalleryImage } from '@/interfaces/gallery.images.iterface';
 
 const STORAGE_KEY = 'galleryImages';
 
-export const galleryService = {
+const galleryService = {
   generateUniqueId(): number {
     return Date.now() + Math.floor(Math.random() * 1000);
   },
@@ -45,3 +33,4 @@ export const galleryService = {
     }
   },
 };
+export default galleryService;

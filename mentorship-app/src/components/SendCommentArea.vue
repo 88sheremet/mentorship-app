@@ -2,7 +2,7 @@
   <div class="send-comment-area">
     <h2 class="send-comment-area__header">Comments: {{ commentsCount }}</h2>
 
-    <div v-if="comments.length > 0" class="comment-item-list">
+    <div v-if="comments.length" class="comment-item-list">
       <CommentItem
         v-for="(comment, index) in comments"
         :key="index"
@@ -26,12 +26,6 @@ import {
 } from 'vue-property-decorator';
 import CommentItem from '@/components/CommentItem.vue';
 import AddCommentForm from '@/components/InputArea.vue';
-
-export interface Comment {
-  person: string;
-  time: string;
-  comment: string;
-}
 
 @Component({
   components: {

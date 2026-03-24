@@ -33,7 +33,9 @@ import AddImageCard from '@/components/AddImageCard.vue';
 import ModalCard from '@/components/ModalCard.vue';
 import CardWithComments from '@/components/CardWithComments.vue';
 
-import { galleryService, GalleryImage, Comment } from '@/services/gallery.service';
+import galleryService from '@/services/gallery.service';
+import { Comment } from '@/interfaces/comment.interface';
+import { GalleryImage } from '@/interfaces/gallery.images.iterface';
 
 @Component({
   components: { AddImageCard, ModalCard, CardWithComments },
@@ -46,8 +48,9 @@ export default class GalleryBox extends Vue {
   images: GalleryImage[] = [];
 
   get currentImage(): GalleryImage | null {
-    if (this.selectedIndex === null) return null;
-    return this.images[this.selectedIndex];
+    return this.selectedIndex !== null
+      ? this.images[this.selectedIndex] || null
+      : null;
   }
 
   openModal(index: number): void {
@@ -101,36 +104,6 @@ export default class GalleryBox extends Vue {
     };
 
     reader.readAsDataURL(file);
-  }
-
-  // eslint-disable-next-line class-methods-use-this
-  generateUniqueId(): number {
-    const newId = Date.now() + Math.floor(Math.random() * 1000);
-    return newId;
-  }
-
-  saveImages(): void {
-    try {
-      localStorage.setItem('galleryImages', JSON.stringify(this.images));
-    } catch (error) {
-      console.error('Failed to save images', error);
-    }
-  }
-
-  loadImages(): void {
-    const savedImages = localStorage.getItem('galleryImages');
-
-    if (savedImages) {
-      try {
-        const parsed = JSON.parse(savedImages);
-        this.images = parsed.map((img: any) => ({
-          ...img,
-          comments: img.comments || [],
-        }));
-      } catch (error) {
-        console.error('Failed to load images', error);
-      }
-    }
   }
 
   async fetchImages(): Promise<void> {
