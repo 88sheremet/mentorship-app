@@ -1,5 +1,5 @@
 <template>
-  <button class="add-image-card" @click="openFileDialog">
+  <button class="add-image-card" @click="openSearch">
     <img class="add-image-card__img" src="../assets/pic9.png" alt="Image" />
 
     <div class="add-image-card__inner-wrapper">
@@ -21,10 +21,14 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
+import { Component, Vue, Emit } from 'vue-property-decorator';
 
 @Component
 export default class AddImageCard extends Vue {
+@Emit('open-search')
+// eslint-disable-next-line class-methods-use-this, @typescript-eslint/no-empty-function
+  openSearch(): void {}
+
   $refs!: {
     fileInput: HTMLInputElement
   };

@@ -10,7 +10,12 @@
         />
     </div>
 
-    <AddImageCard @add-image="handleAddImage" />
+    <AddImageCard @open-search="openSearchPopup"/>
+
+   <SearchImagePopup
+     :visible="isSearchPopupOpen"
+     @close="closeSearchPopup"
+     />
 
     <ModalCard
       v-if="currentImage"
@@ -30,6 +35,8 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 import AddImageCard from '@/components/AddImageCard.vue';
+import SearchImagePopup from '@/components/SearchImagePopup.vue';
+
 import ModalCard from '@/components/ModalCard.vue';
 import CardWithComments from '@/components/CardWithComments.vue';
 
@@ -38,10 +45,14 @@ import { Comment } from '@/interfaces/comment.interface';
 import { GalleryImage } from '@/interfaces/gallery.images.iterface';
 
 @Component({
-  components: { AddImageCard, ModalCard, CardWithComments },
+  components: {
+    ModalCard, CardWithComments, SearchImagePopup, AddImageCard,
+  },
 })
 export default class GalleryBox extends Vue {
   isModalOpen = false;
+
+  isSearchPopupOpen = false;
 
   selectedIndex: number | null = null;
 
@@ -122,6 +133,14 @@ export default class GalleryBox extends Vue {
     } catch (error) {
       console.error('API ERROR:', error);
     }
+  }
+
+  openSearchPopup(): void {
+    this.isSearchPopupOpen = true;
+  }
+
+  closeSearchPopup(): void {
+    this.isSearchPopupOpen = false;
   }
 
   mounted(): void {
