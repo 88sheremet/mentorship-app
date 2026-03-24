@@ -12,23 +12,23 @@
       <div class="modal">
         <CloseIconPopup class="close-icon-popup" @click="close" />
         <div class="input-wrapper">
-             <label for="searchImg">
-          <input
-            v-model="searchQuery"
-            type="text"
-            class="input"
-            placeholder="Search images..."
-          />
-        </label>
+          <label for="searchImg">
+            <input
+              v-model="searchQuery"
+              type="text"
+              class="input"
+              placeholder="Search images..."
+            />
+          </label>
         </div>
         <div class="images-grid">
-          <img
-               v-for="img in searchImages"
-               :key="img.id"
-               :src="img.src"
-               class="image"
-               alt=""
-            />
+          <div v-for="img in searchImages" :key="img.id" class="image-item">
+            <img :src="img.src" class="image" alt="" />
+
+            <button class="overlay" @click="selectImage(img.src)">
+              <button class="add-btn">Add</button>
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -56,13 +56,19 @@ export default class SearchImagePopup extends Vue {
     console.log(this);
   }
 
+  @Emit('select-image')
+  // eslint-disable-next-line class-methods-use-this, @typescript-eslint/no-empty-function
+  selectImage(src: string): string {
+    return src;
+  }
+
   searchImages: any[] = [];
 
   searchQuery = '';
 
   @Watch('searchQuery')
   onSearchChange(value: string): void {
-    if (value.length > 2) {
+    if (value.length > 1) {
       this.fetchSearchImages(value);
     }
   }
@@ -70,7 +76,7 @@ export default class SearchImagePopup extends Vue {
   async fetchSearchImages(query: string): Promise<void> {
     try {
       const response = await fetch(
-        `https://api.unsplash.com/search/photos?client_id=lViX2vRt9epgPRt_OWXB_g7Y91wdrXCyM4h9S1O4iOM&query=${query}&per_page=12`,
+        `https://api.unsplash.com/search/photos?client_id=lViX2vRt9epgPRt_OWXB_g7Y91wdrXCyM4h9S1O4iOM&query=${query}`,
       );
 
       const data = await response.json();
@@ -111,8 +117,8 @@ export default class SearchImagePopup extends Vue {
 .close-icon-popup {
   margin-left: 785px;
 }
-.input-wrapper{
-    margin: 0 auto;
+.input-wrapper {
+  margin: 0 auto;
 }
 .images-grid {
   display: grid;
@@ -126,5 +132,38 @@ export default class SearchImagePopup extends Vue {
   height: 100px;
   object-fit: cover;
   cursor: pointer;
+}
+.image-item {
+  position: relative;
+  cursor: pointer;
+}
+
+.image {
+  width: 100%;
+  height: 100px;
+  object-fit: cover;
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.image-item:hover .overlay {
+  opacity: 1;
+}
+
+.add-btn {
+  background: white;
+  border: none;
+  padding: 6px 12px;
+  cursor: pointer;
+  font-weight: 600;
 }
 </style>
