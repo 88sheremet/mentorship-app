@@ -3,6 +3,7 @@
     <label for="nickname">
       <input
         id="nickname"
+        v-model="nickname"
         class=""
         name="nickname"
         type="text"
@@ -15,11 +16,12 @@
           id="comment"
           class=""
           name="comment"
+          v-model="commentText"
           type="text"
           placeholder="Write your comment here..."
         />
       </label>
-      <button class="button-send">
+      <button class="button-send" @click="submitComment">
         <img
           :src="closeIconImg"
           alt="Send icon"
@@ -30,12 +32,40 @@
   </div>
 </template>
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
+import { Component, Vue, Emit } from 'vue-property-decorator';
 import closeIconImg from '../assets/popup-send-icon.png';
 
 @Component
 export default class CloseIconPopup extends Vue {
   closeIconImg = closeIconImg;
+
+  nickname = '';
+
+  commentText = '';
+
+  get isFormValid(): boolean {
+    return this.nickname.trim() !== '' && this.commentText.trim() !== '';
+  }
+
+  @Emit('submit-comment')
+  submitComment(): { person: string; comment: string } | null {
+    if (!this.isFormValid) {
+      return null;
+    }
+
+    const commentData = {
+      person: this.nickname.trim(),
+      comment: this.commentText.trim(),
+    };
+
+    this.clearForm();
+    return commentData;
+  }
+
+  clearForm(): void {
+    this.nickname = '';
+    this.commentText = '';
+  }
 }
 
 </script>
@@ -46,7 +76,7 @@ export default class CloseIconPopup extends Vue {
 }
 #nickname {
   border: none;
-  border-bottom: 1px solid #a1b1bb;
+  border-bottom: 1px solid var(--primary-text-color);
   padding: 4px;
   padding-left: 11px;
   font-size: 14px;
@@ -59,7 +89,7 @@ export default class CloseIconPopup extends Vue {
   width: 289px;
 }
 #comment {
-  border: 1px solid #a1b1bb;
+  border: 1px solid var(--primary-text-color);
   border-right: none;
   padding: 4px;
   padding-left: 11px;
@@ -70,7 +100,7 @@ export default class CloseIconPopup extends Vue {
   width: 223px;
 }
 .button-send {
-  background: #21b8c6;
+  background: var(--accent-color);
   border-radius: 3px;
   width: 50px;
   display: flex;

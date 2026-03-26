@@ -1,0 +1,16 @@
+:root{
+    --primary-text-color: #a1b1bb;
+    --second-text-color: #757575;
+    --accent-color: #21b8c6;
+    --circle-text-color: #0d7f8a;
+    --white-color: #FFFFFF;
+    --scrollbar-color: #d1dae3;
+    --scrollbar-track-color: #e0e0e0;
+    --modal-overlay-color: rgba(211, 211, 211, 0.5);
+    --modal-overlay-shadow-color: rgba(0, 0, 0, 0.2);
+    --modal-bottom-color: #f3f4f2;
+    --slogan-logo-color: #000000;
+    --feedback-area-color: #f5f7f4;
+    --like-box-color: #e0e5e9;
+    --dislike-box-color: #d02828;
+  }
