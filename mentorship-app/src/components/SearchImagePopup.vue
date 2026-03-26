@@ -80,7 +80,7 @@ export default class SearchImagePopup extends Vue {
       );
 
       const data = await response.json();
-      console.log(data);
+      // console.log(data);
       this.searchImages = data.results.map((img: any) => ({
         id: img.id,
         src: img.urls.thumb,

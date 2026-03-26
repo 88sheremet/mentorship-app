@@ -204,6 +204,10 @@ export default class ModalCard extends Vue {
   background: var(--like-box-color);
   width: 64px;
   height: 61px;
+
+  &:active{
+    background: var(--dislike-box-color);
+  }
 }
 .like-box {
   background: var(--like-box-color);
@@ -211,6 +215,10 @@ export default class ModalCard extends Vue {
   height: 61px;
   margin-right: 8px;
   margin-top: -7px;
+
+  &:active{
+    background: var(--accent-color);
+  }
 }
 .likes-circle {
   border-radius: 50%;
