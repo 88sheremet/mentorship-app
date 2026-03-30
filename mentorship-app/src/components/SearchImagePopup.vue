@@ -139,7 +139,7 @@ export default class SearchImagePopup extends Vue {
 .overlay {
   position: absolute;
   inset: 0;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(var(--slogan-logo-color), 0.5);
   display: flex;
   align-items: center;
   justify-content: center;
