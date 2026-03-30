@@ -13,33 +13,35 @@
         <div class="modal__wrapper">
           <div class="modal__wrapper-left">
             <img
-              src="../assets/popup-pic1.png"
+              v-if="image"
+              :src="image"
               alt="Picture"
               class="modal__wrapper-left-img"
             />
             <div class="modal__wrapper-left-bottom-box">
-              <div class="dislike-box likes-box">
+              <button class="dislike-box likes-box" @click="dislikeImage">
                 <div class="dislike-box__content likes-box__content">
                   <img :src="dislike" alt="" class="likes-box__content-img" />
                   <div class="dislike-circle likes-circle">
-                    <p class="dislike-circle-text likes-circle-text">7</p>
+                    <p class="dislike-circle-text likes-circle-text">  {{ dislikes }}</p>
                   </div>
                 </div>
-              </div>
-              <div class="like-box likes-box">
+              </button>
+              <button class="like-box likes-box" @click="likeImage">
                 <div class="like-box__content likes-box__content">
                   <img :src="like" alt="" class="likes-box__content-img" />
                   <div class="like-circle likes-circle">
-                    <p class="like-circle-text likes-circle-text">10</p>
+                    <p class="like-circle-text likes-circle-text">  {{ likes }}</p>
                   </div>
                 </div>
-              </div>
+              </button>
             </div>
           </div>
           <div class="modal__wrapper-right">
             <CloseIconPopup class="close-icon-popup" @click="close" />
-            <SendCommentArea />
-            <InputArea />
+            <SendCommentArea
+              :comments="comments"
+              @add-comment="handleAddComment"/>
           </div>
         </div>
       </div>
@@ -48,11 +50,16 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop } from 'vue-property-decorator';
+
+import {
+  Component, Vue, Prop, Watch, Emit,
+} from 'vue-property-decorator';
 
 import CloseIconPopup from '@/components/CloseIconPopup.vue';
+
 import SendCommentArea from '@/components/SendCommentArea.vue';
-import InputArea from '@/components/InputArea.vue';
+
+import { Comment } from '@/interfaces/comment.interface';
 
 import dislikeIcon from '../assets/popup-dislike-icon.png';
 import likeIcon from '../assets/popup-like-icon.png';
@@ -61,29 +68,40 @@ import likeIcon from '../assets/popup-like-icon.png';
   components: {
     CloseIconPopup,
     SendCommentArea,
-    InputArea,
   },
 })
 export default class ModalCard extends Vue {
-  // ===== Props =====
   @Prop({ type: Boolean, required: true })
   readonly visible!: boolean
 
-  // ===== Data =====
+  @Prop({ default: null })
+  readonly image!: string | null
+
+  @Prop({ required: true })
+  readonly likes!: number
+
+  @Prop({ required: true })
+  readonly dislikes!: number
+
+  @Prop({ type: Array, default: () => [] })
+  readonly initialComments!: Comment[];
+
+  comments: Comment[] = [];
+
   dislike: string = dislikeIcon
 
   like: string = likeIcon
 
-  // ===== Lifecycle =====
   mounted(): void {
     document.addEventListener('keydown', this.onEsc);
+
+    this.comments = [...this.initialComments];
   }
 
   beforeDestroy(): void {
     document.removeEventListener('keydown', this.onEsc);
   }
 
-  // ===== Methods =====
   close(): void {
     this.$emit('close');
   }
@@ -93,28 +111,61 @@ export default class ModalCard extends Vue {
       this.close();
     }
   }
+
+ @Emit('like')
+  likeImage(): void {
+    console.log(this);
+  }
+
+  @Emit('dislike')
+ dislikeImage(): void {
+   console.log(this);
+ }
+
+  @Watch('visible')
+  onVisibleChange(newVal: boolean) {
+    if (newVal && this.initialComments.length > 0) {
+      this.comments = [...this.initialComments];
+    }
+  }
+
+  @Emit('update:comments')
+  handleAddComment(commentData: { person: string; comment: string }): Comment[] {
+    const newComment: Comment = {
+      person: commentData.person,
+      time: new Date().toLocaleString(),
+      comment: commentData.comment,
+    };
+
+    const updatedComments = [...this.comments, newComment];
+
+    this.comments = updatedComments;
+
+    return updatedComments;
+  }
 }
 </script>
 
 <style lang="scss">
 .modal-overlay {
   position: fixed;
-  inset: 0;
-  background: rgba(211, 211, 211, 0.5);
+  background: var(--modal-overlay-color);
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 1000;
-  width: 1024px;
+  inset: 0;
+  width: 100%;
+  height: 100%;
 }
 
 .modal {
-  background: #fff;
+  background: var(--white-color);
   border-radius: 3px;
   width: 810px;
   height: 595px;
   margin-top: 19px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 2px 5px var(--modal-overlay-shadow-color);
 }
 
 .fade-enter-active,
@@ -133,32 +184,45 @@ export default class ModalCard extends Vue {
 }
 .modal__wrapper-left {
   position: relative;
+  width: 450px;
+  height: 555px;
 }
 .modal__wrapper-left-bottom-box {
   position: absolute;
   bottom: 0;
   height: 63px;
-  background: #f3f4f2;
+  background: var(--modal-bottom-color);
   width: 451px;
   display: flex;
   justify-content: end;
   gap: 6px;
 }
+.modal__wrapper-left-img{
+  max-width: 400px;
+}
 .dislike-box {
-  background: #d02828;
+  background: var(--like-box-color);
   width: 64px;
   height: 61px;
+
+  &:active{
+    background: var(--dislike-box-color);
+  }
 }
 .like-box {
-  background: #e0e5e9;
+  background: var(--like-box-color);
   width: 64px;
   height: 61px;
   margin-right: 8px;
   margin-top: -7px;
+
+  &:active{
+    background: var(--accent-color);
+  }
 }
 .likes-circle {
   border-radius: 50%;
-  border: 2px solid #a1b1bb;
+  border: 2px solid var(--primary-text-color);
   width: 15px;
   height: 15px;
   display: flex;
@@ -167,12 +231,12 @@ export default class ModalCard extends Vue {
   position: absolute;
   top: 0;
   right: 0;
-  background: #fff;
+  background: var(--white-color);
 }
 .likes-circle-text {
   font-size: 11px;
   font-weight: 600;
-  color: #0d7f8a;
+  color: var(--circle-text-color);
 }
 .likes-box__content {
   position: relative;

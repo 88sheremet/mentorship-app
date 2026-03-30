@@ -47,7 +47,7 @@ export default class CommentItem extends Vue {
   width: 265px;
 }
 .comment-item-wrapper__bottom {
-  border: 1px solid #a1b1bb;
+  border: 1px solid var(--primary-text-color);
   padding: 13px 10px;
 }
 </style>
