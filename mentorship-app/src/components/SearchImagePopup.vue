@@ -22,12 +22,15 @@
           </label>
         </div>
         <div class="images-grid">
-          <div v-for="img in searchImages" :key="img.id" class="image-item">
+          <div v-for="img in searchImages"
+          :key="img.id"
+          class="image-item"
+          :class="{ 'selected': isSelected(img.src) }">
             <img :src="img.src" class="image" alt="" />
 
-            <button class="overlay" @click="selectImage(img.src)">
-              <button class="add-btn">Add</button>
-            </button>
+             <button class="overlay" @click="selectImage(img.src)">
+               <button class="add-btn">{{ isSelected(img.src) ? 'Added' : 'Add' }}</button>
+             </button>
           </div>
         </div>
       </div>
@@ -51,6 +54,9 @@ import {
 export default class SearchImagePopup extends Vue {
   @Prop({ type: Boolean, required: true })
   readonly visible!: boolean;
+
+  @Prop({ type: Array, default: () => [] })
+readonly selectedImages!: string[];
 
   @Emit('close')
   close(): void {
@@ -80,6 +86,10 @@ export default class SearchImagePopup extends Vue {
     } catch (error) {
       console.error('API ERROR:', error);
     }
+  }
+
+  isSelected(src: string): boolean {
+    return this.selectedImages.includes(src);
   }
 }
 </script>
@@ -157,5 +167,13 @@ export default class SearchImagePopup extends Vue {
   padding: 6px 12px;
   cursor: pointer;
   font-weight: 600;
+}
+.image-item.selected {
+  border: 3px solid #4CAF50;
+}
+
+.image-item.selected .overlay {
+  background: rgba(76, 175, 80, 0.5);
+  opacity: 1;
 }
 </style>

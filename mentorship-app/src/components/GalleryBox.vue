@@ -16,6 +16,7 @@
      :visible="isSearchPopupOpen"
      @close="closeSearchPopup"
      @select-image="addImageFromSearch"
+     :selected-images="images.map(img => img.src)"
      />
 
     <ModalCard
@@ -146,7 +147,7 @@ export default class GalleryBox extends Vue {
     });
 
     galleryService.save(this.images);
-    this.closeSearchPopup();
+    // this.closeSearchPopup();
   }
 
   mounted(): void {
