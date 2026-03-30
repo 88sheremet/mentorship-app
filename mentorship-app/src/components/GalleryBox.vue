@@ -44,7 +44,7 @@ import CardWithComments from '@/components/CardWithComments.vue';
 import galleryService from '@/services/gallery.service';
 import { Comment } from '@/interfaces/comment.interface';
 import { GalleryImage } from '@/interfaces/gallery.images.iterface';
-import { unsplashService } from '@/services/unsplash.service';
+import unsplashService from '@/services/unsplash.getImages.service';
 
 @Component({
   components: {

@@ -37,6 +37,7 @@
 
 <script lang="ts">
 import CloseIconPopup from '@/components/CloseIconPopup.vue';
+import searchUnsplashService from '@/services/unspalsh.searchImages.service';
 
 import {
   Component, Vue, Prop, Emit, Watch,
@@ -75,16 +76,7 @@ export default class SearchImagePopup extends Vue {
 
   async fetchSearchImages(query: string): Promise<void> {
     try {
-      const response = await fetch(
-        `https://api.unsplash.com/search/photos?client_id=lViX2vRt9epgPRt_OWXB_g7Y91wdrXCyM4h9S1O4iOM&query=${query}`,
-      );
-
-      const data = await response.json();
-      // console.log(data);
-      this.searchImages = data.results.map((img: any) => ({
-        id: img.id,
-        src: img.urls.thumb,
-      }));
+      this.searchImages = await searchUnsplashService.searchImages(query);
     } catch (error) {
       console.error('API ERROR:', error);
     }
