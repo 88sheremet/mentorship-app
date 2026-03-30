@@ -44,6 +44,7 @@ import CardWithComments from '@/components/CardWithComments.vue';
 import galleryService from '@/services/gallery.service';
 import { Comment } from '@/interfaces/comment.interface';
 import { GalleryImage } from '@/interfaces/gallery.images.iterface';
+import { unsplashService } from '@/services/unsplash.service';
 
 @Component({
   components: {
@@ -120,19 +121,10 @@ export default class GalleryBox extends Vue {
 
   async fetchImages(): Promise<void> {
     try {
-      const response = await fetch('https://api.unsplash.com/photos/random?client_id=lViX2vRt9epgPRt_OWXB_g7Y91wdrXCyM4h9S1O4iOM&count=20');
-      const data = await response.json();
-
-      this.images = data.map((img: any) => ({
-        id: Number(img.id),
-        src: img.urls.thumb,
-        likes: 0,
-        dislikes: 0,
-        comments: [],
-      }));
+      this.images = await unsplashService.getRandomImages(20);
       galleryService.save(this.images);
     } catch (error) {
-      console.error('API ERROR:', error);
+      console.error(error);
     }
   }
 
