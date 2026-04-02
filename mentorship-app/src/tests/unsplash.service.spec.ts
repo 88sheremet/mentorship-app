@@ -5,7 +5,7 @@ jest.mock("@/api/http.service");
 
 describe("searchUnsplashService", () => {
   it("should map API response correctly", async () => {
-    // мок под твой httpService: сразу results
+    
     const mockData = {
       results: [
         { id: "1", urls: { small: "img.jpg" } },
