@@ -60,7 +60,7 @@ readonly selectedImages!: string[];
 
   @Emit('close')
   close(): void {
-    console.log(this);
+    // console.log(this);
   }
 
   @Emit('select-image')
