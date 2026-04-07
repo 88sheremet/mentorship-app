@@ -2,7 +2,7 @@ import { mount } from '@vue/test-utils';
 import SearchImagePopup from '@/components/SearchImagePopup.vue';
 
 describe('SearchImagePopup', () => {
-  it('emits close event', async () => {
+  it('should emits close event', async () => {
     const wrapper = mount(SearchImagePopup, {
       propsData: { visible: true },
     });

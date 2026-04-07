@@ -4,7 +4,7 @@ import httpService from "@/api/http.service";
 jest.mock("@/api/http.service");
 
 describe("searchUnsplashService", () => {
-  it("should map API response correctly", async () => {
+  it("should should map API response correctly", async () => {
     
     const mockData = {
       results: [

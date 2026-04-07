@@ -18,7 +18,7 @@ describe('GalleryBox.vue', () => {
     wrapper = shallowMount(GalleryBox);
   });
 
-  it('handles like and dislike correctly', () => {
+  it('should handles like and dislike correctly', () => {
     wrapper.setData({
       images: [{ id: 1, src: 'img1.png', likes: 0, dislikes: 0, comments: [] }],
       selectedIndex: 0,

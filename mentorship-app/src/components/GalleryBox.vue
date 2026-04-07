@@ -147,7 +147,6 @@ export default class GalleryBox extends Vue {
     });
 
     galleryService.save(this.images);
-    // this.closeSearchPopup();
   }
 
   mounted(): void {

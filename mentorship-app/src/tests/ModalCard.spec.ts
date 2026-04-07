@@ -10,7 +10,7 @@ describe('ModalCard.vue', () => {
     initialComments: [],
   };
 
-  it('emits "like" event when like button clicked', async () => {
+  it('should emits "like" event when like button clicked', async () => {
     const wrapper = shallowMount(ModalCard, { propsData: props });
 
     const likeButton = wrapper.find('.like-box');

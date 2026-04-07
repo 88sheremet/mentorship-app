@@ -60,7 +60,7 @@ readonly selectedImages!: string[];
 
   @Emit('close')
   close(): void {
-    // console.log(this);
+    // emit close event
   }
 
   @Emit('select-image')
@@ -169,11 +169,11 @@ readonly selectedImages!: string[];
   font-weight: 600;
 }
 .image-item.selected {
-  border: 3px solid #4CAF50;
+  border: 3px solid var(--selected-item);
 }
 
 .image-item.selected .overlay {
-  background: rgba(76, 175, 80, 0.5);
+  background: var(--selected-bg);
   opacity: 1;
 }
 </style>
