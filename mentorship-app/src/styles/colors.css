@@ -13,4 +13,6 @@
     --feedback-area-color: #f5f7f4;
     --like-box-color: #e0e5e9;
     --dislike-box-color: #d02828;
+    --selected-item: #4CAF50;
+    --selected-bg: rgba(76, 175, 80, 0.5);
   }

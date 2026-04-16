@@ -59,7 +59,7 @@ import CloseIconPopup from '@/components/CloseIconPopup.vue';
 
 import SendCommentArea from '@/components/SendCommentArea.vue';
 
-import { Comment } from '@/interfaces/comment.interface';
+import { IComment } from '@/interfaces/comment.interface';
 
 import dislikeIcon from '../assets/popup-dislike-icon.png';
 import likeIcon from '../assets/popup-like-icon.png';
@@ -84,9 +84,9 @@ export default class ModalCard extends Vue {
   readonly dislikes!: number
 
   @Prop({ type: Array, default: () => [] })
-  readonly initialComments!: Comment[];
+  readonly initialComments!: IComment[];
 
-  comments: Comment[] = [];
+  comments: IComment[] = [];
 
   dislike: string = dislikeIcon
 
@@ -130,8 +130,8 @@ export default class ModalCard extends Vue {
   }
 
   @Emit('update:comments')
-  handleAddComment(commentData: { person: string; comment: string }): Comment[] {
-    const newComment: Comment = {
+  handleAddComment(commentData: { person: string; comment: string }): IComment[] {
+    const newComment: IComment = {
       person: commentData.person,
       time: new Date().toLocaleString(),
       comment: commentData.comment,

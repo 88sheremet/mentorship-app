@@ -16,6 +16,7 @@
      :visible="isSearchPopupOpen"
      @close="closeSearchPopup"
      @select-image="addImageFromSearch"
+     :selected-images="images.map(img => img.src)"
      />
 
     <ModalCard
@@ -42,7 +43,7 @@ import ModalCard from '@/components/ModalCard.vue';
 import CardWithComments from '@/components/CardWithComments.vue';
 
 import galleryService from '@/services/gallery.service';
-import { Comment } from '@/interfaces/comment.interface';
+import { IComment } from '@/interfaces/comment.interface';
 import { GalleryImage } from '@/interfaces/gallery.images.iterface';
 import unsplashService from '@/services/unsplash.getImages.service';
 
@@ -90,7 +91,7 @@ export default class GalleryBox extends Vue {
     }
   }
 
-  handleCommentsUpdate(updatedComments: Comment[]): void {
+  handleCommentsUpdate(updatedComments: IComment[]): void {
     if (this.currentImage) {
       this.currentImage.comments = updatedComments;
       galleryService.save(this.images);
@@ -146,7 +147,6 @@ export default class GalleryBox extends Vue {
     });
 
     galleryService.save(this.images);
-    this.closeSearchPopup();
   }
 
   mounted(): void {
